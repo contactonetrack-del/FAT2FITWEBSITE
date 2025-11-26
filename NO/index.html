@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT2FAT XPRESS - Premium Fitness Platform</title>
+    <meta name="description" content="Transform your fitness journey with FIT2FAT XPRESS - personalized workouts, nutrition tracking, and expert guidance.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                <div class="logo-text">
+                    <span class="logo-main gradient-text">FIT2FAT</span>
+                    <span class="logo-sub">XPRESS</span>
+                </div>
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#programs" class="nav-link">Programs</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn btn-primary">
+                    <span>Start Free Trial</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn-mobile" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="badge">
+                    <i class="fas fa-star"></i>
+                    <span>Rated #1 Premium Fitness Platform 2024</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Transform Your Body, <span class="gradient-text">Elevate Your Life</span>
+                </h1>
+
+                <p class="hero-desc">
+                    Join thousands of fitness enthusiasts who have transformed their lives with FIT2FAT XPRESS.
+                    Get personalized workouts, expert nutrition guidance, and achieve your dream physique.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg">
+                        <span>Start Your Journey</span>
+                        <i class="fas fa-rocket"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-lg">
+                        <span>Watch Demo</span>
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+
+                <div class="stats glass">
+                    <div class="stat">
+                        <div class="stat-number" data-target="25000">0</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="95">0</div>
+                        <div class="stat-label">Success Rate %</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="500">0</div>
+                        <div class="stat-label">Expert Trainers</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">About FIT2FAT XPRESS</div>
+                    <h2 class="section-title">
+                        Where Fitness Meets <span class="gradient-text">Innovation</span>
+                    </h2>
+                    <p class="section-desc">
+                        We combine cutting-edge technology with proven fitness methodologies to deliver
+                        personalized workout experiences that adapt to your unique needs and goals.
+                    </p>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="features">
+                        <article class="feature glass">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3>AI-Powered Workouts</h3>
+                                <p>Smart algorithms that adapt your training based on performance, recovery, and goals.</p>
+                            </div>
+                        </article>
+
+                        <article class="feature glass">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Progress Tracking</h3>
+                                <p>Detailed analytics and insights to monitor your transformation journey.</p>
+                            </div>
+                        </article>
+
+                        <article class="feature glass">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Expert Community</h3>
+                                <p>Connect with certified trainers and motivated fitness enthusiasts worldwide.</p>
+                            </div>
+                        </article>
+
+                        <article class="feature glass">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Mobile Integration</h3>
+                                <p>Seamless synchronization across all your devices and fitness wearables.</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="about-image glass">
+                        <img src="https://plus.unsplash.com/premium_photo-1664298336349-5f509828df83?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Modern Fitness Training" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs -->
+        <section class="section" id="programs">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">Training Programs</div>
+                    <h2 class="section-title">
+                        Discover Your Perfect <span class="gradient-text">Program</span>
+                    </h2>
+                    <p class="section-desc">
+                        Choose from our comprehensive range of scientifically-designed programs
+                        tailored to meet your specific fitness goals and experience level.
+                    </p>
+                </div>
+
+                <div class="grid grid-3">
+                    <article class="card glass">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=300&fit=crop" 
+                                 alt="Strength Training" loading="lazy">
+                            <span class="card-badge">Popular</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Strength Training</h3>
+                            <p>Build muscle mass and increase strength with progressive overload techniques.</p>
+                            
+                            <div class="tags">
+                                <span class="tag"><i class="fas fa-dumbbell"></i> Weight Training</span>
+                                <span class="tag"><i class="fas fa-chart-bar"></i> Progress Tracking</span>
+                            </div>
+
+                            <div class="card-meta">
+                                <span><strong>Duration:</strong> 12 Weeks</span>
+                                <span><strong>Level:</strong> All Levels</span>
+                            </div>
+
+                            <button class="btn btn-outline">
+                                <span>Learn More</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass featured">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop" 
+                                 alt="HIIT Training" loading="lazy">
+                            <span class="card-badge badge-accent">Recommended</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>HIIT Training</h3>
+                            <p>High-intensity interval training for maximum calorie burn and cardiovascular improvement.</p>
+                            
+                            <div class="tags">
+                                <span class="tag"><i class="fas fa-fire"></i> Fat Burning</span>
+                                <span class="tag"><i class="fas fa-heartbeat"></i> Cardio Boost</span>
+                            </div>
+
+                            <div class="card-meta">
+                                <span><strong>Duration:</strong> 8 Weeks</span>
+                                <span><strong>Level:</strong> Beginner+</span>
+                            </div>
+
+                            <button class="btn btn-primary">
+                                <span>Start Now</span>
+                                <i class="fas fa-rocket"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" 
+                                 alt="Yoga Training" loading="lazy">
+                            <span class="card-badge">Wellness</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Yoga & Flexibility</h3>
+                            <p>Improve flexibility, balance, and mental well-being through mindful movement.</p>
+                            
+                            <div class="tags">
+                                <span class="tag"><i class="fas fa-leaf"></i> Mindfulness</span>
+                                <span class="tag"><i class="fas fa-spa"></i> Flexibility</span>
+                            </div>
+
+                            <div class="card-meta">
+                                <span><strong>Duration:</strong> 6 Weeks</span>
+                                <span><strong>Level:</strong> All Levels</span>
+                            </div>
+
+                            <button class="btn btn-outline">
+                                <span>Explore</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">Platform Features</div>
+                    <h2 class="section-title">
+                        Everything You Need to <span class="gradient-text">Succeed</span>
+                    </h2>
+                    <p class="section-desc">
+                        Powerful features designed to accelerate your fitness transformation and keep you motivated every step of the way.
+                    </p>
+                </div>
+
+                <div class="grid grid-3">
+                    <article class="card glass feature-card" onclick="openPersonalizedWorkouts()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3>Personalized Workouts</h3>
+                            <p>AI-powered workout plans that adapt to your fitness level, goals, and available equipment.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openPersonalizedWorkouts()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass feature-card" onclick="openNutritionTracking()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3>Nutrition Tracking</h3>
+                            <p>Smart meal planning and calorie tracking to fuel your body and optimize your results.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openNutritionTracking()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass feature-card" onclick="openProgressAnalytics()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Progress Analytics</h3>
+                            <p>Detailed insights and visualizations to track your transformation journey over time.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openProgressAnalytics()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass feature-card" onclick="openLiveClasses()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3>Live Classes</h3>
+                            <p>Join live workout sessions with expert trainers and connect with the community in real-time.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openLiveClasses()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass feature-card" onclick="openCommunitySupport()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Community Support</h3>
+                            <p>Connect with thousands of members, share progress, and stay motivated together.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openCommunitySupport()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card glass feature-card" onclick="openWearableIntegration()">
+                        <div class="card-content">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Wearable Integration</h3>
+                            <p>Sync with your favorite fitness trackers and smartwatches for seamless data tracking.</p>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openWearableIntegration()">
+                                <span>Try Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="section" id="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">Pricing Plans</div>
+                    <h2 class="section-title">
+                        Choose Your <span class="gradient-text">Plan</span>
+                    </h2>
+                    <p class="section-desc">
+                        Select the perfect plan for your fitness journey. All plans include full access to our platform.
+                    </p>
+                </div>
+
+                <div class="grid grid-3">
+                    <article class="card glass">
+                        <div class="card-content">
+                            <h3>Basic</h3>
+                            <div class="price">
+                                <span class="price-amount">$29</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> Access to all programs</li>
+                                <li><i class="fas fa-check"></i> Basic nutrition tracking</li>
+                                <li><i class="fas fa-check"></i> Community support</li>
+                                <li><i class="fas fa-check"></i> Mobile app access</li>
+                            </ul>
+                            <button class="btn btn-outline btn-block">Choose Plan</button>
+                        </div>
+                    </article>
+
+                    <article class="card glass featured">
+                        <div class="card-content">
+                            <h3>Pro</h3>
+                            <div class="price">
+                                <span class="price-amount">$49</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> Everything in Basic</li>
+                                <li><i class="fas fa-check"></i> Personalized meal plans</li>
+                                <li><i class="fas fa-check"></i> 1-on-1 trainer sessions</li>
+                                <li><i class="fas fa-check"></i> Advanced analytics</li>
+                                <li><i class="fas fa-check"></i> Priority support</li>
+                            </ul>
+                            <button class="btn btn-primary btn-block">Choose Plan</button>
+                        </div>
+                    </article>
+
+                    <article class="card glass">
+                        <div class="card-content">
+                            <h3>Elite</h3>
+                            <div class="price">
+                                <span class="price-amount">$99</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> Everything in Pro</li>
+                                <li><i class="fas fa-check"></i> Unlimited trainer access</li>
+                                <li><i class="fas fa-check"></i> Custom workout plans</li>
+                                <li><i class="fas fa-check"></i> Supplement guidance</li>
+                                <li><i class="fas fa-check"></i> VIP community access</li>
+                            </ul>
+                            <button class="btn btn-outline btn-block">Choose Plan</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vlogs Section -->
+        <section class="section" id="vlogs">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">Latest Vlogs</div>
+                    <h2 class="section-title">
+                        Watch & <span class="gradient-text">Learn</span>
+                    </h2>
+                    <p class="section-desc">
+                        Get expert advice, workout routines, and motivation directly from our trainers through our latest video logs.
+                    </p>
+                </div>
+
+                <div class="grid grid-3">
+                    <!-- Vlog 1 -->
+                    <article class="card glass blog-card vlog-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=400&h=300&fit=crop" 
+                                 alt="Home Workout Vlog" loading="lazy">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="card-badge badge-accent">Vlog</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> Oct 20, 2024</span>
+                                <span><i class="fas fa-video"></i> 15:30</span>
+                            </div>
+                            <h3>Full Body Home Workout</h3>
+                            <p>Follow along with this intense full-body circuit that you can do anywhere.</p>
+                            <a href="vlog-home-workout.html" class="btn btn-primary">
+                                <span>Watch Video</span>
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Vlog 2 -->
+                    <article class="card glass blog-card vlog-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1574680096141-1cddd32e0340?w=400&h=300&fit=crop" 
+                                 alt="Supplement Guide Vlog" loading="lazy">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="card-badge badge-accent">Vlog</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> Oct 10, 2024</span>
+                                <span><i class="fas fa-video"></i> 12:45</span>
+                            </div>
+                            <h3>Ultimate Supplement Guide</h3>
+                            <p>We break down which supplements are worth your money and which to avoid.</p>
+                            <a href="vlog-supplements.html" class="btn btn-primary">
+                                <span>Watch Video</span>
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Vlog 3 -->
+                    <article class="card glass blog-card vlog-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&h=300&fit=crop" 
+                                 alt="Meal Prep Vlog" loading="lazy">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="card-badge badge-accent">Vlog</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> Oct 01, 2024</span>
+                                <span><i class="fas fa-video"></i> 20:15</span>
+                            </div>
+                            <h3>Weekly Meal Prep with Me</h3>
+                            <p>Watch how I prepare healthy meals for the entire week in under 2 hours.</p>
+                            <a href="vlog-meal-prep.html" class="btn btn-primary">
+                                <span>Watch Video</span>
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="section-actions">
+                    <a href="blog.html" class="btn btn-outline">
+                        <span>View All Posts</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge">Get In Touch</div>
+                    <h2 class="section-title">
+                        Start Your <span class="gradient-text">Journey Today</span>
+                    </h2>
+                    <p class="section-desc">
+                        Have questions? Our team is here to help you achieve your fitness goals.
+                    </p>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="contact-info glass">
+                        <h3>Contact Information</h3>
+                        <p>Reach out to us through any of these channels.</p>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p><a href="mailto:contact@fat2fitxpress.com">contact@fat2fitxpress.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <p>123 Fitness Ave, Health City, HC 12345</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form glass">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-input" rows="5" placeholder="Your message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer glass">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                        <div class="logo-text">
+                            <span class="logo-main gradient-text">FIT2FAT</span>
+                            <span class="logo-sub">XPRESS</span>
+                        </div>
+                    </div>
+                    <p>Transform your fitness journey with our premium platform.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/fat2fitxpress" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/fat2fitxpress" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/fat2fitxpress" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@Fat2FitXpress" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#about">About</a>
+                    <a href="#programs">Programs</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+
+
+                <div class="footer-links footer-contact">
+                    <h4>Contact Us</h4>
+                    <div class="contact-group">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:contact@fat2fitxpress.com">contact@fat2fitxpress.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Fitness Ave, Health City</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="#">Blog</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Support</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for fitness tips and updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" class="form-input" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 FIT2FAT XPRESS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lazy Loading Polyfill for Safari < 15.4 -->
+    <script>
+        // Check if browser supports native lazy loading
+        if ('loading' in HTMLImageElement.prototype) {
+            // Native lazy loading is supported
+            console.log('✅ Native lazy loading supported');
+        } else {
+            // Polyfill for older browsers
+            console.log('🔄 Loading lazy loading polyfill...');
+            
+            // Get all images with loading="lazy"
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            
+            if ('IntersectionObserver' in window) {
+                // Use IntersectionObserver for efficient lazy loading
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            
+                            // Load the image
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                            }
+                            
+                            // Remove loading attribute
+                            img.removeAttribute('loading');
+                            
+                            // Add loaded class for styling
+                            img.classList.add('lazy-loaded');
+                            
+                            // Stop observing this image
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    // Load images 50px before they enter viewport
+                    rootMargin: '50px 0px',
+                    threshold: 0.01
+                });
+                
+                // Observe all lazy images
+                lazyImages.forEach(img => {
+                    // Store original src in data-src if needed
+                    if (!img.dataset.src && img.src) {
+                        img.dataset.src = img.src;
+                    }
+                    imageObserver.observe(img);
+                });
+                
+                console.log(`✅ Lazy loading polyfill active for ${lazyImages.length} images`);
+            } else {
+                // Fallback: load all images immediately if IntersectionObserver not supported
+                lazyImages.forEach(img => {
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+                    img.removeAttribute('loading');
+                });
+                console.log('⚠️ IntersectionObserver not supported, loading all images');
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
