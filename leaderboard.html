@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Leaderboard - FIT2FAT XPRESS</title>
+    <meta name="description" content="Compete with other members and climb the leaderboard. Track your rankings and achievements.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="/Logo.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css">
+    <link rel="stylesheet" href="css/gamification-styles.css">
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                <div class="logo-text">
+                    <span class="logo-main gradient-text">FIT2FAT</span>
+                    <span class="logo-sub">XPRESS</span>
+                </div>
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="user-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="leaderboard.html" class="nav-link active">Leaderboard</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="user-dashboard.html" class="btn btn-primary">
+                    <span>My Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <button class="btn-mobile" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="section" style="min-height: 100vh; padding-top: 140px;">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" style="text-align: center; margin-bottom: var(--s-6);">
+                <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--s-3);">
+                    🏆 Leaderboard
+                </h1>
+                <p class="hero-desc" style="max-width: 600px; margin: 0 auto;">
+                    Compete with the community and see where you rank!
+                </p>
+            </div>
+
+            <!-- User's Rank Card (If logged in) -->
+            <div class="glass" id="userRankCard" style="padding: var(--s-4); margin-bottom: var(--s-6); display: none; border: 2px solid var(--c-primary);">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--s-3);">
+                    <div style="display: flex; align-items: center; gap: var(--s-3);">
+                        <div class="leaderboard-rank" id="userRank">-</div>
+                        <div>
+                            <div class="leaderboard-name" id="userName">Your Name</div>
+                            <div class="leaderboard-level" id="userLevel">Level 1 • Beginner</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="leaderboard-points" id="userPoints">0</div>
+                        <div class="leaderboard-workouts" id="userWorkouts">0 workouts</div>
+                    </div>
+                </div>
+                
+                <!-- Level Progress -->
+                <div class="level-progress">
+                    <div class="level-progress-header">
+                        <span class="level-progress-current">Level <span id="currentLevel">1</span></span>
+                        <span class="level-progress-next"><span id="pointsToNext">100</span> to Level <span id="nextLevel">2</span></span>
+                    </div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" id="levelProgressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div class="glass" style="padding: var(--s-6); overflow: hidden;">
+                <div class="leaderboard-header">
+                    <h2 style="font-size: 1.75rem; margin: 0;">
+                        <i class="fas fa-trophy" style="color: #ffd700;"></i>
+                        Rankings
+                    </h2>
+                    <div class="leaderboard-filters">
+                        <button class="filter-btn active" data-period="allTime">
+                            <i class="fas fa-infinity"></i>
+                            All Time
+                        </button>
+                        <button class="filter-btn" data-period="monthly">
+                            <i class="fas fa-calendar-alt"></i>
+                            This Month
+                        </button>
+                        <button class="filter-btn" data-period="weekly">
+                            <i class="fas fa-calendar-week"></i>
+                            This Week
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leaderboard List -->
+                <div class="leaderboard">
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Leaderboard items will be dynamically inserted -->
+                        <div style="text-align: center; padding: var(--s-8); color: var(--c-text-muted);">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: var(--s-2);"></i>
+                            <p>Loading leaderboard...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" style="text-align: center; padding: var(--s-8); display: none;">
+                    <div style="font-size: 4rem; margin-bottom: var(--s-3);">🏆</div>
+                    <h3 style="margin-bottom: var(--s-2);">Be the First!</h3>
+                    <p style="color: var(--c-text-muted); margin-bottom: var(--s-4);">
+                        Start working out to appear on the leaderboard.
+                    </p>
+                    <a href="user-dashboard.html" class="btn btn-primary">
+                        <span>Start Now</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Achievements Showcase -->
+            <div class="glass" style="padding: var(--s-6); margin-top: var(--s-6);">
+                <h2 style="font-size: 1.75rem; margin-bottom: var(--s-4);">
+                    <i class="fas fa-medal" style="color: #10b981;"></i>
+                    Available Achievements
+                </h2>
+                <div id="achievementsShowcase" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--s-3);">
+                    <!-- Achievement cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FIT2FAT XPRESS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="firebase-config.js"></script>
+    
+    <!-- Leaderboard Scripts -->
+    <script type="module" src="js/leaderboard.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

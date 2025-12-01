@@ -9,6 +9,149 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Rich HTML Content Styling */
+        #postBody {
+            color: var(--c-text);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        #postBody h1,
+        #postBody h2,
+        #postBody h3,
+        #postBody h4,
+        #postBody h5,
+        #postBody h6 {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            margin-top: var(--s-4);
+            margin-bottom: var(--s-2);
+            color: var(--c-text);
+            line-height: 1.3;
+        }
+
+        #postBody h1 { font-size: 2.5rem; }
+        #postBody h2 { font-size: 2rem; }
+        #postBody h3 { font-size: 1.75rem; }
+        #postBody h4 { font-size: 1.5rem; }
+        #postBody h5 { font-size: 1.25rem; }
+        #postBody h6 { font-size: 1.1rem; }
+
+        #postBody p {
+            margin-bottom: var(--s-3);
+            color: var(--c-text-light);
+        }
+
+        #postBody strong,
+        #postBody b {
+            font-weight: 700;
+            color: var(--c-text);
+        }
+
+        #postBody em,
+        #postBody i {
+            font-style: italic;
+        }
+
+        #postBody u {
+            text-decoration: underline;
+        }
+
+        #postBody ul,
+        #postBody ol {
+            margin: var(--s-3) 0;
+            padding-left: var(--s-4);
+            color: var(--c-text-light);
+        }
+
+        #postBody ul {
+            list-style-type: disc;
+        }
+
+        #postBody ol {
+            list-style-type: decimal;
+        }
+
+        #postBody li {
+            margin-bottom: var(--s-2);
+            line-height: 1.8;
+        }
+
+        #postBody a {
+            color: var(--c-primary);
+            text-decoration: underline;
+            transition: var(--transition);
+        }
+
+        #postBody a:hover {
+            color: var(--c-accent);
+        }
+
+        #postBody blockquote {
+            border-left: 4px solid var(--c-primary);
+            padding-left: var(--s-3);
+            margin: var(--s-4) 0;
+            font-style: italic;
+            color: var(--c-text-muted);
+            background: rgba(102, 126, 234, 0.05);
+            padding: var(--s-3);
+            border-radius: var(--radius);
+        }
+
+        #postBody code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--c-primary);
+        }
+
+        #postBody pre {
+            background: rgba(0, 0, 0, 0.1);
+            padding: var(--s-3);
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: var(--s-4) 0;
+        }
+
+        #postBody pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        #postBody img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+            margin: var(--s-4) 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        #postBody video {
+            max-width: 100%;
+            border-radius: var(--radius);
+            margin: var(--s-4) 0;
+        }
+
+        #postBody iframe {
+            max-width: 100%;
+            border-radius: var(--radius);
+            margin: var(--s-4) 0;
+        }
+
+        [data-theme="dark"] #postBody {
+            color: var(--c-text);
+        }
+
+        [data-theme="dark"] #postBody p,
+        [data-theme="dark"] #postBody ul,
+        [data-theme="dark"] #postBody ol,
+        [data-theme="dark"] #postBody li {
+            color: var(--c-text-light);
+        }
+    </style>
 </head>
 <body>
     <!-- Background Orbs -->

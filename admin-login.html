@@ -9,55 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--s-4);
-        }
-        .login-card {
-            width: 100%;
-            max-width: 400px;
-            padding: var(--s-8);
-            text-align: center;
-        }
-        .login-logo {
-            margin-bottom: var(--s-6);
-        }
-        .form-group {
-            margin-bottom: var(--s-4);
-            text-align: left;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: var(--s-2);
-            color: var(--c-text-muted);
-            font-size: 0.875rem;
-        }
-        .form-input {
-            width: 100%;
-            padding: var(--s-3);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius);
-            color: var(--c-white);
-            font-family: inherit;
-            transition: var(--transition);
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--c-primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .error-message {
-            color: #ff4444;
-            font-size: 0.875rem;
-            margin-bottom: var(--s-4);
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <!-- Background Orbs -->
@@ -70,7 +21,7 @@
     <div class="login-container">
         <div class="card glass login-card">
             <div class="login-logo">
-                <a href="index.html" class="logo" style="justify-content: center;">
+                <a href="index.html" class="logo">
                     <img src="Logo.png" alt="Logo" class="logo-icon-img">
                     <div class="logo-text">
                         <span class="logo-main gradient-text">FIT2FAT</span>
@@ -79,9 +30,9 @@
                 </a>
             </div>
 
-            <h2 style="margin-bottom: var(--s-6);">Admin Login</h2>
+            <h2>Admin Login</h2>
 
-            <form id="loginForm">
+            <form id="loginForm" class="login-form">
                 <div class="error-message" id="errorMessage"></div>
                 
                 <div class="form-group">
@@ -94,7 +45,7 @@
                     <input type="password" id="password" class="form-input" required placeholder="••••••••">
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                <button type="submit" class="btn btn-primary">
                     <span>Sign In</span>
                     <i class="fas fa-sign-in-alt"></i>
                 </button>

@@ -9,6 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- Quill Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    
+    <!-- Quill Enhanced Modules -->
+    <script src="https://cdn.jsdelivr.net/npm/quill-table@1.3.0/dist/quill-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill-emoji@0.2.0/dist/quill-emoji.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill-mention@3.1.0/dist/quill-mention.min.js"></script>
+    
+    <!-- Google Fonts for Editor -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@300;400;700&family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Admin dashboard tweaks -->
     <style>
         .dashboard-container {
             padding-top: 120px;
@@ -78,23 +91,402 @@
         .form-group {
             margin-bottom: var(--s-4);
         }
+
         .form-label {
             display: block;
             margin-bottom: var(--s-2);
-            color: var(--c-text-muted);
+            color: #374151;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
+
         .form-input, .form-textarea, .form-select {
             width: 100%;
             padding: var(--s-3);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(102, 126, 234, 0.3);
             border-radius: var(--radius);
-            color: var(--c-white);
+            color: #1a1a1a;
             font-family: inherit;
+            font-size: 0.95rem;
+            caret-color: var(--c-primary);
+            transition: var(--transition);
         }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--c-primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input:disabled,
+        .form-textarea:disabled {
+            background: #f3f4f6;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .form-select option {
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
         .form-textarea {
             min-height: 200px;
             resize: vertical;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: var(--s-3);
+            background: #ffffff;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: var(--radius);
+            color: #1a1a1a;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 8px 16px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .inline-fields {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--s-3);
+        }
+
+        @media (max-width: 640px) {
+            .inline-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .field-hint {
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .pill-toggle {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 4px;
+        }
+
+        .pill-toggle button {
+            border: none;
+            background: transparent;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--c-text-muted);
+            cursor: pointer;
+        }
+
+        .pill-toggle button.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        .thumbnail-preview {
+            margin-top: var(--s-2);
+            display: flex;
+            align-items: center;
+            gap: var(--s-2);
+        }
+
+        .thumbnail-preview img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+
+        .thumbnail-preview span {
+            font-size: 0.8rem;
+            color: var(--c-text-muted);
+        }
+
+        .badge-pill {
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Rich Text Editor Styles */
+        #postContentEditor {
+            margin-bottom: var(--s-2);
+        }
+
+        #postContentEditor .ql-container {
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            min-height: 250px;
+        }
+
+        #postContentEditor .ql-editor {
+            min-height: 250px;
+            color: #1a1a1a;
+        }
+
+        #postContentEditor .ql-editor.ql-blank::before {
+            color: #9ca3af;
+            font-style: normal;
+        }
+
+        #postContentEditor .ql-toolbar {
+            background: #f9fafb;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+        }
+
+        #postContentEditor .ql-toolbar .ql-stroke {
+            stroke: #374151;
+        }
+
+        #postContentEditor .ql-toolbar .ql-fill {
+            fill: #374151;
+        }
+
+        #postContentEditor .ql-toolbar button:hover,
+        #postContentEditor .ql-toolbar button.ql-active {
+            color: var(--c-primary);
+        }
+
+        #postContentEditor .ql-toolbar button:hover .ql-stroke,
+        #postContentEditor .ql-toolbar button.ql-active .ql-stroke {
+            stroke: var(--c-primary);
+        }
+
+        #postContentEditor .ql-toolbar button:hover .ql-fill,
+        #postContentEditor .ql-toolbar button.ql-active .ql-fill {
+            fill: var(--c-primary);
+        }
+
+        #postContentEditor .ql-container {
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+
+        /* Enhanced Editor Styles */
+        .editor-toolbar-custom {
+            margin-bottom: var(--s-2);
+        }
+
+        .font-family-dropdown {
+            min-width: 120px;
+        }
+
+        .font-size-dropdown {
+            min-width: 80px;
+        }
+
+        /* Edit Mode Styles */
+        .edit-mode-indicator {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: var(--s-2) var(--s-4);
+            border-radius: var(--radius);
+            margin-bottom: var(--s-4);
+            display: flex;
+            align-items: center;
+            gap: var(--s-2);
+            font-weight: 600;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: var(--s-1);
+            align-items: center;
+        }
+
+        .edit-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .edit-btn:hover {
+            background: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Advanced Editor Customization */
+        .ql-toolbar.ql-snow {
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .ql-container.ql-snow {
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+
+        .ql-editor {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+        }
+
+        .ql-editor.ql-blank::before {
+            color: #9ca3af;
+            font-style: normal;
+        }
+
+        /* Custom emoji picker positioning */
+        .ql-emoji {
+            position: relative;
+        }
+
+        /* Advanced formatting indicators */
+        .advanced-formatting {
+            border-left: 3px solid var(--c-primary);
+            padding-left: var(--s-3);
+            margin: var(--s-3) 0;
+        }
+
+        /* Table styles */
+        .ql-table {
+            border-collapse: collapse;
+            margin: var(--s-3) 0;
+        }
+
+        .ql-table td, .ql-table th {
+            border: 1px solid #e5e7eb;
+            padding: var(--s-2);
+            text-align: left;
+        }
+
+        .ql-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+
+        /* Enhanced Quill Toolbar Styles */
+        .ql-toolbar .ql-formats {
+            margin-right: 15px;
+        }
+
+        .ql-toolbar .ql-picker-label {
+            border: 1px solid transparent;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .ql-toolbar .ql-picker-label:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: var(--c-primary);
+        }
+
+        .ql-toolbar .ql-picker-label.ql-active {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: var(--c-primary);
+            color: var(--c-primary);
+        }
+
+        .ql-toolbar .ql-stroke {
+            stroke: #374151;
+        }
+
+        .ql-toolbar .ql-fill {
+            fill: #374151;
+        }
+
+        .ql-toolbar button:hover {
+            color: var(--c-primary);
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 6px;
+        }
+
+        .ql-toolbar button.ql-active {
+            color: var(--c-primary);
+            background: rgba(102, 126, 234, 0.15);
+            border-radius: 6px;
+        }
+
+        /* Table Enhancement */
+        .ql-table td.ql-ui.ql-ui-active {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        /* Code Block Enhancement */
+        .ql-editor pre.ql-syntax {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Emoji Enhancement */
+        .ql-emoji {
+            font-size: 16px;
+        }
+
+        /* Formula Enhancement */
+        .ql-formula {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+        }
+
+        /* Custom Dropdown Styling */
+        .ql-header .ql-picker-label[data-value="1"]::before,
+        .ql-header .ql-picker-label[data-value="2"]::before,
+        .ql-header .ql-picker-label[data-value="3"]::before {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -128,36 +520,87 @@
 
     <main class="container dashboard-container">
         <div class="dashboard-header">
-            <h1>Admin Dashboard</h1>
-            <div class="badge">Content Management System</div>
+            <div>
+                <h1>Admin Dashboard</h1>
+                <div class="badge badge-pill">Content Management System</div>
+            </div>
+            <div class="badge badge-pill" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.35); color: #bbf7d0;">
+                <i class="fas fa-shield-alt" style="margin-right: 6px;"></i>
+                Only authenticated admins can publish content
+            </div>
         </div>
 
         <div class="dashboard-grid">
             <!-- Create Post Form -->
             <div class="card glass form-section">
-                <h2 style="margin-bottom: var(--s-4); color: var(--c-primary);">Create New Post</h2>
+                <h2 style="margin-bottom: var(--s-4); color: var(--c-primary);" id="formTitle">Create New Post</h2>
+                
+                <!-- Edit Mode Indicator -->
+                <div id="editModeIndicator" class="edit-mode-indicator" style="display: none;">
+                    <i class="fas fa-edit"></i>
+                    <span>Editing Post: <strong id="editingPostTitle"></strong></span>
+                    <button type="button" id="cancelEditBtn" class="btn btn-outline" style="margin-left: auto; padding: var(--s-1) var(--s-2); font-size: 0.875rem;">
+                        Cancel Edit
+                    </button>
+                </div>
+                
                 <form id="createPostForm">
                     <div class="form-group">
                         <label class="form-label">Post Type</label>
-                        <select id="postType" class="form-select">
+                        <select id="postType" class="form-select" title="Select the type of post you want to create">
                             <option value="blog">Blog Article</option>
                             <option value="vlog">Video Log (Vlog)</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" id="postTitle" class="form-input" required placeholder="Enter post title...">
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" id="postTitle" class="form-input" required placeholder="Enter post title...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Author</label>
+                            <input type="text" id="postAuthor" class="form-input" required placeholder="e.g. Dr. Sarah Fit">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Author</label>
-                        <input type="text" id="postAuthor" class="form-input" required placeholder="e.g. Dr. Sarah Fit">
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <input type="text" id="postCategory" class="form-input" placeholder="e.g. Strength, Nutrition, Mindset">
+                            <div class="field-hint">Optional. Used for grouping posts.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tags</label>
+                            <input type="text" id="postTags" class="form-input" placeholder="comma, separated, tags">
+                            <div class="field-hint">Optional. Example: yoga, beginner, home workout</div>
+                        </div>
                     </div>
 
+                    <!-- Thumbnail source selector -->
                     <div class="form-group">
-                        <label class="form-label">Image URL (Thumbnail)</label>
-                        <input type="url" id="postImage" class="form-input" required placeholder="https://...">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--s-2);">
+                            <label class="form-label" style="margin-bottom: 0;">Thumbnail</label>
+                            <div class="pill-toggle" aria-label="Thumbnail source">
+                                <button type="button" id="thumbModeUrl" class="active">Use URL</button>
+                                <button type="button" id="thumbModeUpload">Upload</button>
+                            </div>
+                        </div>
+
+                        <!-- URL mode -->
+                        <div id="thumbUrlWrapper">
+                            <input type="url" id="postImage" class="form-input" placeholder="https://your-image-url.com/thumbnail.jpg">
+                        </div>
+
+                        <!-- Upload mode -->
+                        <div id="thumbUploadWrapper" style="display: none;">
+                            <input type="file" id="postImageFile" class="form-input" accept="image/*">
+                            <div class="field-hint">We will embed this image directly in the post. For best performance, use images under 1 MB.</div>
+                            <div class="thumbnail-preview" id="thumbnailPreview" style="display:none;">
+                                <img id="thumbnailPreviewImg" alt="Thumbnail preview">
+                                <span id="thumbnailPreviewInfo"></span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group" id="videoUrlGroup" style="display: none;">
@@ -169,15 +612,36 @@
                     <div class="form-group">
                         <label class="form-label">Description (Excerpt)</label>
                         <textarea id="postExcerpt" class="form-input" style="min-height: 80px;" required placeholder="Short summary for the card..."></textarea>
+                        <div class="field-hint">Appears on cards and list views. Aim for 1–3 sentences.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Full Content (HTML Supported)</label>
-                        <textarea id="postContent" class="form-textarea" required placeholder="<p>Write your content here...</p>"></textarea>
+                        <label class="form-label">Full Content (Advanced Rich Text Editor)</label>
+                        <div id="postContentEditor" style="background: #ffffff; border: 1px solid rgba(102, 126, 234, 0.3); border-radius: var(--radius); min-height: 400px;"></div>
+                        <textarea id="postContent" style="display: none;" required></textarea>
+                        <div class="field-hint">
+                            <strong>Advanced Features:</strong> Format text with fonts, sizes, colors • Insert tables, images, videos • Add special characters • Code blocks • Emoji support
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <span>Publish Post</span>
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label class="form-label">Custom Slug (optional)</label>
+                            <input type="text" id="postSlug" class="form-input" placeholder="everyday-yoga-plan">
+                            <div class="field-hint">Use lowercase letters, numbers, and hyphens only.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Featured Post</label>
+                            <select id="postFeatured" class="form-select" title="Choose whether this post should be featured">
+                                <option value="false">No</option>
+                                <option value="true">Yes, highlight this post</option>
+                            </select>
+                            <div class="field-hint">Featured posts can be shown in hero sections or “Top Picks”.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitButton" class="btn btn-primary" style="width: 100%;">
+                        <span id="submitButtonText">Publish Post</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -190,6 +654,10 @@
                     <div style="text-align: center; color: var(--c-text-muted); padding: var(--s-4);">
                         <i class="fas fa-spinner fa-spin"></i> Loading posts...
                     </div>
+                </div>
+                <div style="margin-top: var(--s-3); padding-top: var(--s-3); border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.875rem; color: var(--c-text-muted);">
+                    <i class="fas fa-info-circle" style="margin-right: var(--s-1);"></i>
+                    Click the edit button to modify any published post. Changes will be immediately reflected on the live site.
                 </div>
             </div>
         </div>
@@ -221,15 +689,169 @@
             videoUrlGroup.style.display = e.target.value === 'vlog' ? 'block' : 'none';
         });
 
-        // 4. Create Post
+        // 3b. Thumbnail mode toggle (URL vs Upload)
+        const thumbModeUrlBtn = document.getElementById('thumbModeUrl');
+        const thumbModeUploadBtn = document.getElementById('thumbModeUpload');
+        const thumbUrlWrapper = document.getElementById('thumbUrlWrapper');
+        const thumbUploadWrapper = document.getElementById('thumbUploadWrapper');
+        const postImageInput = document.getElementById('postImage');
+        const postImageFileInput = document.getElementById('postImageFile');
+        const thumbnailPreview = document.getElementById('thumbnailPreview');
+        const thumbnailPreviewImg = document.getElementById('thumbnailPreviewImg');
+        const thumbnailPreviewInfo = document.getElementById('thumbnailPreviewInfo');
+
+        let currentThumbnailDataUrl = null;
+
+        function setThumbnailMode(mode) {
+            const useUrl = mode === 'url';
+            thumbModeUrlBtn.classList.toggle('active', useUrl);
+            thumbModeUploadBtn.classList.toggle('active', !useUrl);
+
+            thumbUrlWrapper.style.display = useUrl ? 'block' : 'none';
+            thumbUploadWrapper.style.display = useUrl ? 'none' : 'block';
+
+            if (useUrl) {
+                currentThumbnailDataUrl = null;
+                thumbnailPreview.style.display = 'none';
+                if (postImageInput) {
+                    postImageInput.removeAttribute('readonly');
+                }
+            } else {
+                if (postImageInput) {
+                    // Prevent accidental typing when in upload mode to avoid confusion
+                    postImageInput.setAttribute('readonly', 'readonly');
+                }
+            }
+        }
+
+        setThumbnailMode('url');
+
+        thumbModeUrlBtn.addEventListener('click', () => setThumbnailMode('url'));
+        thumbModeUploadBtn.addEventListener('click', () => setThumbnailMode('upload'));
+
+        // Initialize Enhanced Rich Text Editor (Quill)
+        const quillEditor = new Quill('#postContentEditor', {
+            theme: 'snow',
+            modules: {
+                toolbar: {
+                    container: [
+                        // Font Family Selection
+                        [{ 'font': ['Inter', 'Open Sans', 'Lora', 'Merriweather', 'Roboto', 'Source Code Pro', 'serif', 'sans-serif'] }],
+                        
+                        // Font Size Selection
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
+                        
+                        // Headers
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        
+                        // Basic Formatting
+                        [{ 'bold': true }, { 'italic': true }, { 'underline': true }, { 'strike': true }],
+                        
+                        // Colors and Background
+                        [{ 'color': [] }, { 'background': [] }],
+                        
+                        // Lists and Alignment
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'align': [] }],
+                        
+                        // Special Characters and Formatting
+                        ['blockquote', 'code-block', 'formula'],
+                        
+                        // Media and Links
+                        ['link', 'image', 'video', 'audio'],
+                        
+                        // Advanced Features
+                        ['table', 'emoji'],
+                        
+                        // Actions
+                        ['clean']
+                    ]
+                },
+                table: true,
+                emoji: true,
+                syntax: true
+            },
+            placeholder: 'Write your content here... Use the advanced toolbar to format text, add images, videos, tables, and more advanced features!',
+            history: {
+                delay: 1000,
+                maxStack: 500,
+                userOnly: false
+            },
+            clipboard: {
+                matchVisual: false
+            }
+        });
+
+        // Sync Quill content to hidden textarea for form submission
+        const postContentTextarea = document.getElementById('postContent');
+        quillEditor.on('text-change', () => {
+            const html = quillEditor.root.innerHTML;
+            postContentTextarea.value = html;
+        });
+
+        if (postImageFileInput) {
+            postImageFileInput.addEventListener('change', () => {
+                const file = postImageFileInput.files && postImageFileInput.files[0];
+                if (!file) {
+                    currentThumbnailDataUrl = null;
+                    thumbnailPreview.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    currentThumbnailDataUrl = e.target?.result;
+                    if (typeof currentThumbnailDataUrl === 'string') {
+                        thumbnailPreviewImg.src = currentThumbnailDataUrl;
+                        thumbnailPreviewInfo.textContent = `${file.name} • ${(file.size / 1024).toFixed(1)} KB`;
+                        thumbnailPreview.style.display = 'flex';
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Edit Mode State Management
+        let isEditMode = false;
+        let editingPostId = null;
+
+        // Cancel Edit Function
+        function cancelEdit() {
+            isEditMode = false;
+            editingPostId = null;
+            
+            // Reset UI
+            document.getElementById('editModeIndicator').style.display = 'none';
+            document.getElementById('formTitle').textContent = 'Create New Post';
+            document.getElementById('submitButtonText').textContent = 'Publish Post';
+            
+            // Clear form
+            document.getElementById('createPostForm').reset();
+            quillEditor.setContents([]);
+            
+            // Reset UI elements
+            videoUrlGroup.style.display = 'none';
+            currentThumbnailDataUrl = null;
+            thumbnailPreview.style.display = 'none';
+            setThumbnailMode('url');
+            
+            // Reset post type to blog
+            document.getElementById('postType').value = 'blog';
+        }
+
+        // Cancel Edit Button
+        document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
+
+        // 4. Create/Update Post
         const createPostForm = document.getElementById('createPostForm');
         createPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = createPostForm.querySelector('button');
+            const btn = document.getElementById('submitButton');
             const originalText = btn.innerHTML;
             
             try {
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${isEditMode ? 'Updating...' : 'Publishing...'}`;
                 btn.disabled = true;
 
                 const type = document.getElementById('postType').value;
@@ -237,35 +859,50 @@
                     type: type,
                     title: document.getElementById('postTitle').value,
                     author: document.getElementById('postAuthor').value,
-                    image: document.getElementById('postImage').value,
+                    image: currentThumbnailDataUrl || document.getElementById('postImage').value,
                     excerpt: document.getElementById('postExcerpt').value,
                     content: document.getElementById('postContent').value,
-                    createdAt: serverTimestamp(),
-                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    category: document.getElementById('postCategory').value || null,
+                    tags: (document.getElementById('postTags').value || '')
+                        .split(',')
+                        .map(t => t.trim())
+                        .filter(Boolean),
+                    slug: (document.getElementById('postSlug').value || '').trim() || null,
+                    featured: document.getElementById('postFeatured').value === 'true',
+                    updatedAt: serverTimestamp()
                 };
 
                 if (type === 'vlog') {
                     postData.videoId = document.getElementById('postVideoId').value;
-                    postData.duration = "10:00"; // Placeholder or add input for duration
+                    postData.duration = "10:00"; // Placeholder
                 } else {
-                    postData.readTime = "5 min read"; // Placeholder or calc based on word count
+                    postData.readTime = "5 min read"; // Placeholder
                 }
 
-                await addDoc(collection(db, "posts"), postData);
+                if (isEditMode) {
+                    // Update existing post
+                    const { updateDoc, doc: docRef } = await import("https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js");
+                    await updateDoc(doc(db, "posts", editingPostId), postData);
+                    alert('Post updated successfully!');
+                } else {
+                    // Create new post
+                    postData.createdAt = serverTimestamp();
+                    postData.date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    await addDoc(collection(db, "posts"), postData);
+                    alert('Post published successfully!');
+                }
                 
-                alert('Post published successfully!');
-                createPostForm.reset();
-                videoUrlGroup.style.display = 'none';
+                cancelEdit(); // This will reset the form and exit edit mode
             } catch (error) {
-                console.error("Error adding document: ", error);
-                alert('Error publishing post: ' + error.message);
+                console.error("Error saving document: ", error);
+                alert(`Error ${isEditMode ? 'updating' : 'publishing'} post: ` + error.message);
             } finally {
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
         });
 
-        // 5. Real-time Posts List
+        // 5. Real-time Posts List with Edit Functionality
         const postsList = document.getElementById('postsList');
         const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
         
@@ -284,14 +921,91 @@
                     <div>
                         <h4>${post.title}</h4>
                         <span>${post.type.toUpperCase()} • ${post.date}</span>
+                        ${post.featured ? '<span style="color: #10b981; font-size: 0.75rem;"><i class="fas fa-star"></i> Featured</span>' : ''}
                     </div>
-                    <button class="delete-btn" onclick="deletePost('${doc.id}')" title="Delete Post">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <div class="post-actions">
+                        <button class="edit-btn" onclick="editPost('${doc.id}')" title="Edit Post">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" onclick="deletePost('${doc.id}')" title="Delete Post">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 `;
                 postsList.appendChild(div);
             });
         });
+
+        // 6. Edit Post Function
+        window.editPost = async (postId) => {
+            try {
+                const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js");
+                const docRef = doc(db, "posts", postId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const post = docSnap.data();
+                    
+                    // Enter edit mode
+                    isEditMode = true;
+                    editingPostId = postId;
+                    
+                    // Update UI
+                    document.getElementById('editModeIndicator').style.display = 'flex';
+                    document.getElementById('formTitle').textContent = 'Edit Post';
+                    document.getElementById('submitButtonText').textContent = 'Update Post';
+                    document.getElementById('editingPostTitle').textContent = post.title;
+                    
+                    // Fill form with existing data
+                    document.getElementById('postType').value = post.type;
+                    document.getElementById('postTitle').value = post.title || '';
+                    document.getElementById('postAuthor').value = post.author || '';
+                    document.getElementById('postExcerpt').value = post.excerpt || '';
+                    document.getElementById('postCategory').value = post.category || '';
+                    document.getElementById('postTags').value = post.tags ? post.tags.join(', ') : '';
+                    document.getElementById('postSlug').value = post.slug || '';
+                    document.getElementById('postFeatured').value = post.featured ? 'true' : 'false';
+                    
+                    // Set content in Quill editor
+                    quillEditor.root.innerHTML = post.content || '';
+                    postContentTextarea.value = post.content || '';
+                    
+                    // Handle video fields for vlogs
+                    if (post.type === 'vlog') {
+                        videoUrlGroup.style.display = 'block';
+                        document.getElementById('postVideoId').value = post.videoId || '';
+                    }
+                    
+                    // Handle thumbnail
+                    if (post.image && post.image.startsWith('data:')) {
+                        // Uploaded image
+                        setThumbnailMode('upload');
+                        currentThumbnailDataUrl = post.image;
+                        thumbnailPreviewImg.src = post.image;
+                        thumbnailPreviewInfo.textContent = 'Uploaded image';
+                        thumbnailPreview.style.display = 'flex';
+                    } else if (post.image && post.image.startsWith('http')) {
+                        // URL image
+                        setThumbnailMode('url');
+                        document.getElementById('postImage').value = post.image;
+                        currentThumbnailDataUrl = null;
+                        thumbnailPreview.style.display = 'none';
+                    }
+                    
+                    // Scroll to form
+                    document.querySelector('.dashboard-grid').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    
+                } else {
+                    alert('Post not found!');
+                }
+            } catch (error) {
+                console.error("Error loading post for editing: ", error);
+                alert('Error loading post for editing: ' + error.message);
+            }
+        };
 
         // Expose delete function to window
         window.deletePost = async (id) => {

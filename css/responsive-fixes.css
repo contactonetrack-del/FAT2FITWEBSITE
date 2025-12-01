@@ -1,0 +1,477 @@
+/* ==============================================
+   RESPONSIVE DESIGN FIXES - FIT2FAT XPRESS
+   Critical mobile-first improvements
+   ============================================== */
+
+/* === CRITICAL FIX 1: Hero Title Wrapping === */
+.hero-title {
+  /* REMOVED: white-space: nowrap; - This was causing overflow on small screens */
+  white-space: normal !important; /* Allow text to wrap */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* === CRITICAL FIX 2: Mobile Header Optimization === */
+@media (max-width: 767px) {
+  /* Fix header overlap and logo sizing */
+  .header .container {
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-3);
+  }
+
+  /* Reduce logo size on small screens */
+  .logo-icon-img {
+    height: 2.5rem !important; /* Down from 4rem */
+  }
+
+  .logo-icon {
+    font-size: 2.5rem !important; /* Down from 4rem */
+  }
+
+  .logo-main {
+    font-size: 1.125rem; /* Slightly smaller */
+  }
+
+  .logo-sub {
+    font-size: 0.5rem; /* Slightly smaller */
+  }
+
+  /* Stack header actions if needed */
+  .header-actions {
+    gap: var(--s-1);
+  }
+
+  /* Make CTA button icon-only on very small screens */
+  .btn-primary span {
+    display: inline; /* Keep text visible */
+  }
+}
+
+@media (max-width: 425px) {
+  /* Extra small screens - more aggressive sizing */
+  .logo-icon-img {
+    height: 2rem !important;
+  }
+
+  .logo-icon {
+    font-size: 2rem !important;
+  }
+
+  .logo-text {
+    display: none; /* Hide text on tiny screens, keep icon only */
+  }
+
+  .hero-title {
+    font-size: 1.75rem !important; /* Override clamp minimum */
+    line-height: 1.15;
+  }
+}
+
+/* === CRITICAL FIX 3: Card Padding Optimization === */
+@media (max-width: 425px) {
+  .card-content {
+    padding: var(--s-3) !important; /* Reduce from var(--s-4) */
+  }
+
+  .form-section {
+    padding: var(--s-4) var(--s-3);
+  }
+
+  /* Optimize pricing cards */
+  .pricing-card {
+    padding: var(--s-4) var(--s-3);
+  }
+}
+
+/* === CRITICAL FIX 4: Stats Spacing === */
+@media (max-width: 767px) {
+  .stats {
+    padding: var(--s-3) var(--s-2) !important; /* Reduce from var(--s-4) */
+    gap: var(--s-3); /* Tighter gaps */
+  }
+
+  .stat {
+    min-width: 80px; /* Ensure readability */
+  }
+
+  .stat-number {
+    font-size: 2rem; /* Smaller on mobile */
+  }
+}
+
+/* === CRITICAL FIX 5: Section Spacing === */
+.section {
+  padding: var(--s-6) 0; /* 48px on mobile (down from 64px) */
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--s-8) 0; /* 64px on tablet+ */
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 96px 0; /* Original desktop value */
+  }
+}
+
+/* === CRITICAL FIX 6: Grid Gap Optimization === */
+@media (max-width: 640px) {
+  .grid,
+  .grid-2,
+  .grid-3 {
+    gap: var(--s-3) !important; /* 24px instead of 32px */
+  }
+
+  /* Single column on mobile for better readability */
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* === CRITICAL FIX 7: Newsletter Form === */
+@media (max-width: 425px) {
+  .newsletter-form {
+    flex-direction: column; /* Stack on tiny screens */
+  }
+
+  .newsletter-form .form-input {
+    min-width: 100% !important;
+  }
+
+  .newsletter-form .btn {
+    width: 100%;
+  }
+}
+
+/* === CRITICAL FIX 8: Hero Actions === */
+@media (max-width: 767px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card.featured {
+    transform: none !important; /* Disable transform on mobile */
+  }
+}
+
+/* === ENHANCEMENT 1: Better Breakpoint System === */
+/* Mobile Small */
+@media (max-width: 375px) {
+  html {
+    font-size: 14px; /* Slightly smaller base for tiny screens */
+  }
+
+  .container {
+    padding: 0 var(--s-2); /* Tighter margins */
+  }
+}
+
+/* Mobile Medium */
+@media (min-width: 376px) and (max-width: 425px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Mobile Large */
+@media (min-width: 426px) and (max-width: 767px) {
+  html {
+    font-size: 16px; /* Normal size */
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+  }
+}
+
+/* Laptop */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on laptop */
+  }
+}
+
+/* Large Laptop / Desktop */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  /* Limit max columns on very wide screens */
+  .grid-3 {
+    grid-template-columns: repeat(3, minmax(280px, 400px));
+    justify-content: center;
+  }
+}
+
+/* === ENHANCEMENT 2: Touch-Friendly Targets === */
+@media (max-width: 1023px) {
+  /* Larger touch targets for mobile */
+  .btn {
+    min-height: 44px; /* Apple's recommended minimum */
+  }
+
+  .nav-link {
+    padding: var(--s-2) var(--s-3); /* Larger tap area */
+  }
+
+  .btn-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* === ENHANCEMENT 3: Font Scaling === */
+/* Use clamp for fluid typography */
+h1 {
+  font-size: clamp(2rem, 5vw + 1rem, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw + 0.5rem, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw + 0.5rem, 2rem);
+}
+
+.hero-desc {
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+}
+
+/* === ENHANCEMENT 4: Improved Grid System === */
+@media (max-width: 1280px) {
+  .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Prevent too many columns on ultra-wide screens */
+@media (min-width: 1920px) {
+  .grid-3 {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+}
+
+/* === ENHANCEMENT 5: Footer Responsive === */
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important; /* Stack on mobile */
+    text-align: center;
+  }
+
+  .footer-brand,
+  .footer-links {
+    align-items: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .contact-item {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columns on tablet */
+  }
+}
+
+/* === ENHANCEMENT 6: Modal Responsive === */
+@media (max-width: 767px) {
+  .modal__content {
+    width: 95%;
+    max-height: 85vh;
+    margin: auto var(--s-2);
+  }
+
+  .modal__header,
+  .modal__body,
+  .modal__footer {
+    padding: var(--s-3);
+  }
+}
+
+/* === ENHANCEMENT 7: Form Responsive === */
+@media (max-width: 767px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form__input {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* === ENHANCEMENT 8: Pricing Cards === */
+@media (max-width: 767px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .card.featured {
+    order: -1; /* Show featured card first on mobile */
+  }
+}
+
+/* === ENHANCEMENT 9: Navigation Improvements === */
+@media (max-width: 1023px) {
+  /* Mobile nav overlay */
+  .nav {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: var(--glass-heavy);
+    backdrop-filter: var(--blur);
+    flex-direction: column;
+    padding: var(--s-4);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .nav.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: var(--s-2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+/* === ENHANCEMENT 10: Accessibility - Reduce Motion === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .orb {
+    animation: none !important;
+  }
+}
+
+/* === ENHANCEMENT 11: Landscape Orientation === */
+@media (max-height: 600px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: var(--s-6);
+  }
+
+  .hero-title {
+    font-size: 2rem !important;
+  }
+
+  .stats {
+    padding: var(--s-2);
+  }
+}
+
+/* === ENHANCEMENT 12: Print Styles === */
+@media print {
+  .header,
+  .btn,
+  .orbs,
+  .footer {
+    display: none !important;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: var(--s-4) 0;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .glass {
+    background: white;
+    border: 1px solid #ccc;
+  }
+}
+
+/* === ENHANCEMENT 13: High Contrast Mode === */
+@media (prefers-contrast: high) {
+  :root {
+    --c-text: #000000;
+    --c-white: #ffffff;
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* === OPTIMIZATION: Performance on Mobile === */
+@media (max-width: 767px) {
+  /* Reduce blur on mobile for better performance */
+  .glass,
+  .btn-secondary,
+  .btn-icon {
+    backdrop-filter: blur(8px); /* Reduced from 16px */
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable heavy animations on mobile */
+  .card:hover {
+    transform: translateY(-4px); /* Reduced from -8px */
+  }
+
+  .orb {
+    opacity: 0.2; /* More subtle on mobile */
+  }
+}

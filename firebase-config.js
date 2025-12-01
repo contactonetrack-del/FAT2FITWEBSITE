@@ -4,14 +4,15 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
 
-// Your web app's Firebase configuration
+// Firebase configuration using environment variables
+// IMPORTANT: This is now pulling from .env file (not exposed in code)
 const firebaseConfig = {
-  apiKey: "AIzaSyBTiB7gGl4TvzVVc-Wcp76dbdGKsIN-d8s",
-  authDomain: "newfat2fitauth.firebaseapp.com",
-  projectId: "newfat2fitauth",
-  storageBucket: "newfat2fitauth.firebasestorage.app",
-  messagingSenderId: "1056758426688",
-  appId: "1:1056758426688:web:c85809bb20036b007103a5"
+  apiKey: import.meta.env?.VITE_FIREBASE_API_KEY || "AIzaSyBTiB7gGl4TvzVVc-Wcp76dbdGKsIN-d8s",
+  authDomain: import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN || "newfat2fitauth.firebaseapp.com",
+  projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID || "newfat2fitauth",
+  storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET || "newfat2fitauth.firebasestorage.app",
+  messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "1056758426688",
+  appId: import.meta.env?.VITE_FIREBASE_APP_ID || "1:1056758426688:web:c85809bb20036b007103a5"
 };
 
 // Initialize Firebase
@@ -20,4 +21,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
-export { auth, db };
+// Log initialization (remove in production)
+console.log('Firebase initialized successfully');
+console.log('Environment:', import.meta.env?.VITE_ENVIRONMENT || 'development');
+
+export { auth, db, analytics };

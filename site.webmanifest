@@ -1,0 +1,149 @@
+{
+  "name": "FIT2FAT XPRESS - Fitness & Nutrition Platform",
+  "short_name": "FIT2FAT",
+  "description": "AI-powered fitness training and nutrition platform with personalized workouts and live coaching",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#667eea",
+  "background_color": "#1a202c",
+  "lang": "en-US",
+  "dir": "ltr",
+  
+  "icons": [
+    {
+      "src": "/images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "/images/screenshot-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Home screen with AI-powered workout recommendations"
+    },
+    {
+      "src": "/images/screenshot-dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "User dashboard with progress tracking"
+    },
+    {
+      "src": "/images/screenshot-workout.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Interactive workout session"
+    }
+  ],
+  
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle",
+    "sports"
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Start Workout",
+      "short_name": "Workout",
+      "description": "Quick access to today's workout",
+      "url": "/workout.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-workout.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Progress",
+      "short_name": "Progress",
+      "description": "Check your fitness progress",
+      "url": "/user-dashboard.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-progress.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Nutrition Plan",
+      "short_name": "Nutrition",
+      "description": "View your meal plan",
+      "url": "/nutrition.html",
+      "icons": [
+        {
+          "src": "/images/shortcut-nutrition.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.fit2fatxpress.app",
+      "id": "com.fit2fatxpress.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/fit2fat-xpress/id1234567890"
+    }
+  ],
+  "prefer_related_applications": false,
+  
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7"
+}

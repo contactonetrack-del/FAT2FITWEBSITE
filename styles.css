@@ -1262,3 +1262,79 @@ textarea.form-input {
   text-align: center;
   margin-top: var(--s-6);
 }
+
+/* === ADMIN LOGIN === */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-4);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--s-8);
+  text-align: center;
+}
+
+.login-logo {
+  margin-bottom: var(--s-6);
+}
+
+.login-logo .logo {
+  justify-content: center;
+}
+
+.login-card h2 {
+  margin-bottom: var(--s-6);
+  color: var(--c-white);
+}
+
+.login-card .btn-primary {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Form styles for admin login */
+.login-form .form-group {
+  margin-bottom: var(--s-4);
+  text-align: left;
+}
+
+.login-form .form-label {
+  display: block;
+  margin-bottom: var(--s-2);
+  color: var(--c-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.login-form .form-input {
+  width: 100%;
+  padding: var(--s-3);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  color: var(--c-white);
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.login-form .form-input:focus {
+  outline: none;
+  border-color: var(--c-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.login-form .form-input::placeholder {
+  color: var(--c-text-muted);
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-bottom: var(--s-4);
+  display: none;
+}
