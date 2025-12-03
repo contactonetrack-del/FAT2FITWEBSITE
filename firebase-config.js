@@ -12,7 +12,8 @@ const firebaseConfig = {
   projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID || "newfat2fitauth",
   storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET || "newfat2fitauth.firebasestorage.app",
   messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "1056758426688",
-  appId: import.meta.env?.VITE_FIREBASE_APP_ID || "1:1056758426688:web:c85809bb20036b007103a5"
+  appId: import.meta.env?.VITE_FIREBASE_APP_ID || "1:1056758426688:web:c85809bb20036b007103a5",
+  measurementId: import.meta.env?.VITE_FIREBASE_MEASUREMENT_ID || "G-3DZ4CWWQ9Q"
 };
 
 // Initialize Firebase

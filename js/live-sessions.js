@@ -30,6 +30,10 @@ let countdownInterval = null;
 // ==================================
 
 onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = 'admin-login.html';
+        return;
+    }
     currentUser = user;
     await loadSessions();
 });

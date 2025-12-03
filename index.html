@@ -486,72 +486,11 @@
                     </p>
                 </div>
 
-                <div class="grid grid-3">
-                    <!-- Vlog 1 -->
-                    <article class="card glass blog-card vlog-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=400&h=300&fit=crop" 
-                                 alt="Home Workout Vlog" loading="lazy">
-                            <div class="play-overlay"><i class="fas fa-play"></i></div>
-                            <span class="card-badge badge-accent">Vlog</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> Oct 20, 2024</span>
-                                <span><i class="fas fa-video"></i> 15:30</span>
-                            </div>
-                            <h3>Full Body Home Workout</h3>
-                            <p>Follow along with this intense full-body circuit that you can do anywhere.</p>
-                            <a href="vlog-home-workout.html" class="btn btn-primary">
-                                <span>Watch Video</span>
-                                <i class="fas fa-play"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <!-- Vlog 2 -->
-                    <article class="card glass blog-card vlog-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1574680096141-1cddd32e0340?w=400&h=300&fit=crop" 
-                                 alt="Supplement Guide Vlog" loading="lazy">
-                            <div class="play-overlay"><i class="fas fa-play"></i></div>
-                            <span class="card-badge badge-accent">Vlog</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> Oct 10, 2024</span>
-                                <span><i class="fas fa-video"></i> 12:45</span>
-                            </div>
-                            <h3>Ultimate Supplement Guide</h3>
-                            <p>We break down which supplements are worth your money and which to avoid.</p>
-                            <a href="vlog-supplements.html" class="btn btn-primary">
-                                <span>Watch Video</span>
-                                <i class="fas fa-play"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <!-- Vlog 3 -->
-                    <article class="card glass blog-card vlog-card">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&h=300&fit=crop" 
-                                 alt="Meal Prep Vlog" loading="lazy">
-                            <div class="play-overlay"><i class="fas fa-play"></i></div>
-                            <span class="card-badge badge-accent">Vlog</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> Oct 01, 2024</span>
-                                <span><i class="fas fa-video"></i> 20:15</span>
-                            </div>
-                            <h3>Weekly Meal Prep with Me</h3>
-                            <p>Watch how I prepare healthy meals for the entire week in under 2 hours.</p>
-                            <a href="vlog-meal-prep.html" class="btn btn-primary">
-                                <span>Watch Video</span>
-                                <i class="fas fa-play"></i>
-                            </a>
-                        </div>
-                    </article>
+                <div class="grid grid-3" id="vlogsGrid">
+                    <!-- Dynamic Vlogs will be inserted here -->
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--c-text-muted);">
+                        <i class="fas fa-spinner fa-spin"></i> Loading vlogs...
+                    </div>
                 </div>
                 
                 <div class="section-actions">
@@ -770,5 +709,66 @@
     </script>
 
     <script src="script.js"></script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        const vlogsGrid = document.getElementById('vlogsGrid');
+
+        async function loadLatestVlogs() {
+            try {
+                // Query for latest 3 vlogs
+                const q = query(
+                    collection(db, "posts"), 
+                    where("type", "==", "vlog"),
+                    orderBy("createdAt", "desc"),
+                    limit(3)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    vlogsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--c-text-muted);">No vlogs available yet.</div>';
+                    return;
+                }
+
+                vlogsGrid.innerHTML = ''; // Clear loading message
+
+                querySnapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const article = document.createElement('article');
+                    article.className = 'card glass blog-card vlog-card';
+                    
+                    const linkUrl = `view-post.html?id=${doc.id}`;
+                    
+                    article.innerHTML = `
+                        <div class="card-image">
+                            <img src="${post.image}" alt="${post.title}" loading="lazy">
+                            <div class="play-overlay"><i class="fas fa-play"></i></div>
+                            <span class="card-badge badge-accent">Vlog</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                                <span><i class="fas fa-video"></i> ${post.duration || '10:00'}</span>
+                            </div>
+                            <h3>${post.title}</h3>
+                            <p>${post.excerpt}</p>
+                            <a href="${linkUrl}" class="btn btn-primary">
+                                <span>Watch Video</span>
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    `;
+                    vlogsGrid.appendChild(article);
+                });
+            } catch (error) {
+                console.error("Error loading vlogs:", error);
+                vlogsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #ff4444;">Error loading vlogs. Please try again later.</div>';
+            }
+        }
+
+        loadLatestVlogs();
+    </script>
 </body>
 </html>

@@ -9,14 +9,11 @@ on:
       - main
   workflow_dispatch: # Allow manual triggers
 
-permissions:
-  contents: write
-
 env:
   NODE_VERSION: "18.x"
-  # If you have a build step (e.g., Vite, React), this is your output directory.
-  # For a pure static site with no build step, change this to '.'
-  BUILD_DIR: "."
+  # Assuming your build output is the 'dist' directory.
+  # If it's a static site with no build, change this to '.'
+  BUILD_DIR: 'dist'
 
 jobs:
   build:
@@ -27,40 +24,46 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install Dependencies
+        if: steps.check_files.outputs.has_package_json == 'true'
+        run: |
+          npm ci
+
+      - name: Create .env File
+        if: steps.check_files.outputs.has_package_json == 'true'
+        run: |
+          echo "VITE_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> .env
+          echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> .env
+          echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> .env
+          echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> .env
+          echo "VITE_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> .env
+          echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }}" >> .env
+
+      - name: Build Project
+        if: steps.check_files.outputs.has_package_json == 'true'
+        run: |
+          npm run build
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: website-build
           path: ${{ env.BUILD_DIR }}
-          if-no-files-found: error
-
-  sitemap:
-    name: Generate Sitemap
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Generate Sitemap
-        uses: cicirello/generate-sitemap@v1
-        with:
-          base-url-path: https://www.fit2fatxpress.com
-
-      - name: Commit and Push Sitemap
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "ci: Auto-generate sitemap.xml"
-          file_pattern: "sitemap.xml"
+          if-no-files-found: error # Fails if the build directory is empty
 
   deploy:
     name: Deploy to Firebase & GitHub Pages
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' # Deploy only on pushes to main
+
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -87,7 +90,6 @@ jobs:
           echo "✅ Deployment Complete!"
           echo "🌐 Live Site: https://www.fat2fitxpress.com"
           echo "📊 GitHub Pages: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-          echo "🔥 Firebase: https://newfat2fitauth.web.app"
 
   lighthouse:
     name: Lighthouse Performance Audit
@@ -104,6 +106,5 @@ jobs:
           urls: |
             https://www.fat2fitxpress.com
             https://www.fat2fitxpress.com/blog.html
-            https://www.fat2fitxpress.com/user-dashboard.html
           uploadArtifacts: true
           temporaryPublicStorage: true

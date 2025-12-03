@@ -16,12 +16,15 @@ let currentPeriod = 'allTime';
 // ==================================
 
 onAuthStateChanged(auth, async (user) => {
-    if (user) {
-        currentUser = user;
-        await loadUserRank();
+    if (!user) {
+        window.location.href = 'admin-login.html';
+        return;
     }
+
+    currentUser = user;
+    await loadUserRank();
     
-    // Load leaderboard (works for both logged in and anonymous)
+    // Load leaderboard
     await loadLeaderboard(currentPeriod);
     loadAchievementsShowcase();
 });
@@ -129,7 +132,7 @@ async function loadLeaderboard(period = 'allTime') {
         let rank = 1;
         snapshot.forEach((doc) => {
             const user = doc.data();
-            const item = createLeaderboard Item(rank, user, doc.id);
+            const item = createLeaderboardItem(rank, user, doc.id);
             leaderboardList.appendChild(item);
             rank++;
         });
