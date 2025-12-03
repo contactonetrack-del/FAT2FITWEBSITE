@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
     <link rel="stylesheet" href="styles.css">
     
     <style>
@@ -267,6 +268,16 @@
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
         import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '#postContent',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            height: 400
+        });
+
         let editingPostId = null;
 
         // Auth Protection
@@ -332,7 +343,7 @@
                     author: document.getElementById('postAuthor').value,
                     image: document.getElementById('postImage').value || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
                     excerpt: document.getElementById('postExcerpt').value,
-                    content: document.getElementById('postContent').value,
+                    content: tinymce.get('postContent').getContent(),
                     category: document.getElementById('postCategory').value || 'General',
                     featured: document.getElementById('postFeatured').value === 'true',
                     updatedAt: serverTimestamp()
@@ -356,6 +367,9 @@
                 }
                 
                 createPostForm.reset();
+                if (tinymce.get('postContent')) {
+                    tinymce.get('postContent').setContent('');
+                }
                 videoUrlGroup.style.display = 'none';
             } catch (error) {
                 console.error("Error saving post:", error);
@@ -421,7 +435,10 @@
                     document.getElementById('postAuthor').value = post.author || '';
                     document.getElementById('postImage').value = post.image || '';
                     document.getElementById('postExcerpt').value = post.excerpt || '';
-                    document.getElementById('postContent').value = post.content || '';
+                    // document.getElementById('postContent').value = post.content || '';
+                    if (tinymce.get('postContent')) {
+                        tinymce.get('postContent').setContent(post.content || '');
+                    }
                     document.getElementById('postCategory').value = post.category || '';
                     document.getElementById('postFeatured').value = post.featured ? 'true' : 'false';
                     
