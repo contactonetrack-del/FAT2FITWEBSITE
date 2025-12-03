@@ -1,130 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  
-  <!-- Homepage -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/</loc>
-    <lastmod>2024-12-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  
-  <!-- Blog Index -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/blog.html</loc>
-    <lastmod>2024-12-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- Main Pages -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/about.html</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/programs.html</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/pricing.html</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/contact.html</loc>
-    <lastmod>2024-11-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Blog Posts (Update dynamically or add manually) -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/blog-nutrition-tips.html</loc>
-    <lastmod>2024-10-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://www.fit2fatxpress.com/images/nutrition-tips.jpg</image:loc>
-      <image:caption>Top 10 Nutrition Tips for Fat Loss</image:caption>
-    </image:image>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/blog-plateau.html</loc>
-    <lastmod>2024-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://www.fit2fatxpress.com/images/plateau.jpg</image:loc>
-      <image:caption>Breaking Through Weight Loss Plateaus</image:caption>
-    </image:image>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/blog-home-workout.html</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Vlog Pages -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/vlog-hiit-workout.html</loc>
-    <lastmod>2024-10-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-    <video:video>
-      <video:thumbnail_loc>https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg</video:thumbnail_loc>
-      <video:title>Full Body HIIT Workout - No Equipment</video:title>
-      <video:description>Follow along with this intense full-body circuit workout</video:description>
-      <video:content_loc>https://www.youtube.com/watch?v=VIDEO_ID</video:content_loc>
-      <video:player_loc>https://www.youtube.com/embed/VIDEO_ID</video:player_loc>
-      <video:duration>930</video:duration>
-      <video:publication_date>2024-10-20</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:uploader info="https://www.youtube.com/@Fat2FitXpress">FIT2FAT XPRESS</video:uploader>
-    </video:video>
-  </url>
-  
-  <!-- User Pages (noindex these) -->
-  <!-- Admin pages are excluded from sitemap -->
-  
-  <!-- Legal Pages -->
-  <url>
-    <loc>https://www.fit2fatxpress.com/privacy-policy.html</loc>
-    <lastmod>2024-11-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.fit2fatxpress.com/terms-of-service.html</loc>
-    <lastmod>2024-11-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  
-  <!-- Add more URLs as content grows -->
-  <!-- 
-  NOTES:
-  1. Update lastmod dates when pages change
-  2. Add new blog posts as they're published
-  3. Priority scale: 1.0 (highest) to 0.1 (lowest)
-  4. Changefreq options: always, hourly, daily, weekly, monthly, yearly, never
-  5. Submit to Google Search Console after updates
-  6. For dynamic content, generate sitemap programmatically
-  7. Create separate video sitemap if you have many vlogs
-  -->
-  
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://www.fit2fatxpress.com/</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/admin-dashboard.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/admin-login.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/blog-nutrition-tips.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/blog-plateau.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/blog-sleep-growth.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/blog.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/live-sessions.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/seo-meta-tags-template.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/view-post.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/vlog-home-workout.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/vlog-meal-prep.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
+<url>
+<loc>https://www.fit2fatxpress.com/vlog-supplements.html</loc>
+<lastmod>2025-12-04T01:56:07+05:30</lastmod>
+</url>
 </urlset>
