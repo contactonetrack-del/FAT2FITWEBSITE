@@ -1,0 +1,433 @@
+/* ==============================================
+   GAMIFICATION STYLES
+   Notifications, badges, leaderboard
+   ============================================== */
+
+/* === NOTIFICATION CONTAINER === */
+#notificationContainer {
+  position: fixed;
+  top: 100px;
+  right: var(--s-4);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  max-width: 400px;
+  pointer-events: none;
+}
+
+/* === GAMIFICATION NOTIFICATION === */
+.gamification-notification {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--glass-heavy);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(102, 126, 234, 0.3);
+  opacity: 0;
+  transform: translateX(120%);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: all;
+  min-height: 80px;
+}
+
+.gamification-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* === NOTIFICATION TYPES === */
+.notification-points {
+  border-left: 4px solid #f093fb;
+}
+
+.notification-levelup {
+  border-left: 4px solid #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(116, 75, 162, 0.2));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.notification-achievement {
+  border-left: 4px solid #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: var(--shadow-lg), 0 0 60px rgba(102, 126, 234, 0.6);
+  }
+}
+
+/* === NOTIFICATION ICON === */
+.notification-icon {
+  font-size: 3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* === NOTIFICATION CONTENT === */
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 4px;
+  color: var(--c-text);
+}
+
+.notification-message {
+  font-size: 0.9375rem;
+  color: var(--c-text-muted);
+  margin-bottom: 2px;
+}
+
+.notification-description {
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+  font-style: italic;
+}
+
+/* === NOTIFICATION CLOSE === */
+.notification-close {
+  background: transparent;
+  border: none;
+  color: var(--c-text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.notification-close:hover {
+  color: var(--c-text);
+  transform: rotate(90deg);
+}
+
+/* === LEVEL BADGE === */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: var(--s-1) var(--s-3);
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.level-badge__number {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* === POINTS DISPLAY === */
+.points-display {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: var(--s-1) var(--s-2);
+  background: rgba(240, 147, 251, 0.1);
+  border: 1px solid rgba(240, 147, 251, 0.3);
+  border-radius: var(--radius);
+  font-weight: 600;
+  color: #f093fb;
+}
+
+.points-display__icon {
+  font-size: 1rem;
+}
+
+.points-display__value {
+  font-size: 0.9375rem;
+}
+
+/* === LEADERBOARD STYLES === */
+.leaderboard {
+  width: 100%;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-4);
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.leaderboard-filters {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.filter-btn {
+  padding: var(--s-2) var(--s-3);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  color: var(--c-text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--c-primary);
+}
+
+.filter-btn.active {
+  background: var(--gradient-primary);
+  color: white;
+  border-color: transparent;
+}
+
+/* === LEADERBOARD LIST === */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--glass-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.leaderboard-item:hover {
+  background: var(--glass-medium);
+  border-color: var(--c-primary);
+  transform: translateX(4px);
+}
+
+/* Top 3 special styling */
+.leaderboard-item:nth-child(1) {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.leaderboard-item:nth-child(2) {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.1));
+  border-color: rgba(192, 192, 192, 0.5);
+}
+
+.leaderboard-item:nth-child(3) {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.1));
+  border-color: rgba(205, 127, 50, 0.5);
+}
+
+/* === LEADERBOARD RANK === */
+.leaderboard-rank {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.125rem;
+  background: var(--glass-medium);
+  flex-shrink: 0;
+}
+
+.leaderboard-item:nth-child(1) .leaderboard-rank {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+}
+
+.leaderboard-item:nth-child(2) .leaderboard-rank {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #000;
+}
+
+.leaderboard-item:nth-child(3) .leaderboard-rank {
+  background: linear-gradient(135deg, #cd7f32, #d4af37);
+  color: #000;
+}
+
+/* === LEADERBOARD AVATAR === */
+.leaderboard-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* === LEADERBOARD USER INFO === */
+.leaderboard-user {
+  flex: 1;
+}
+
+.leaderboard-name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+  color: var(--c-text);
+}
+
+.leaderboard-level {
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+}
+
+/* === LEADERBOARD STATS === */
+.leaderboard-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.leaderboard-points {
+  font-weight: 800;
+  font-size: 1.25rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.leaderboard-workouts {
+  font-size: 0.8125rem;
+  color: var(--c-text-muted);
+}
+
+/* === PROGRESS BAR FOR LEVEL === */
+.level-progress {
+  margin-top: var(--s-3);
+}
+
+.level-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-1);
+  font-size: 0.875rem;
+}
+
+.level-progress-current {
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.level-progress-next {
+  color: var(--c-text-muted);
+}
+
+.level-progress-bar {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.level-progress-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 999px;
+  transition: width 0.8s ease-out;
+}
+
+/* === STREAK INDICATOR === */
+.streak-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: var(--s-1) var(--s-2);
+  background: linear-gradient(135deg, rgba(240, 147, 251, 0.2), rgba(245, 87, 108, 0.2));
+  border: 1px solid rgba(240, 147, 251, 0.3);
+  border-radius: var(--radius);
+  font-weight: 700;
+  color: #f093fb;
+}
+
+.streak-indicator__icon {
+  font-size: 1.25rem;
+  animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.streak-indicator__count {
+  font-size: 0.9375rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  #notificationContainer {
+    right: var(--s-2);
+    left: var(--s-2);
+    max-width: none;
+  }
+
+  .gamification-notification {
+    padding: var(--s-3);
+  }
+
+  .notification-icon {
+    font-size: 2rem;
+  }
+
+  .leaderboard-item {
+    flex-wrap: wrap;
+  }
+
+  .leaderboard-filters {
+    width: 100%;
+  }
+
+  .filter-btn {
+    flex: 1;
+    text-align: center;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "pulse-fitness-glassmorphism-platform",
+  "version": "3.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+

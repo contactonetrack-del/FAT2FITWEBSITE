@@ -1,0 +1,246 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===================================
+    // HELPER FUNCTIONS
+    // ===================================
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function hasRole(role) {
+      return isSignedIn() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+    
+    function isAdmin() {
+      return hasRole('admin');
+    }
+    
+    function isTrainer() {
+      return hasRole('trainer') || isAdmin();
+    }
+    
+    function isPremium() {
+      return isSignedIn() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.subscription in ['pro', 'vip'];
+    }
+    
+    // Validate email format
+    function validEmail(email) {
+      return email is string && 
+             email.matches('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}');
+    }
+    
+    // Validate user data structure
+    function validUserData() {
+      return request.resource.data.keys().hasAll(['email', 'createdAt']) &&
+             validEmail(request.resource.data.email);
+    }
+    
+    // Validate workout data
+    function validWorkoutData() {
+      return request.resource.data.keys().hasAll(['title', 'type', 'difficulty', 'duration']) &&
+             request.resource.data.title is string &&
+             request.resource.data.title.size() >= 3 &&
+             request.resource.data.title.size() <= 100 &&
+             request.resource.data.duration is number &&
+             request.resource.data.duration >= 0 &&
+             request.resource.data.duration <= 300;
+    }
+    
+    // Validate post data
+    function validPostData() {
+      return request.resource.data.keys().hasAll(['title', 'content', 'type']) &&
+             request.resource.data.title is string &&
+             request.resource.data.title.size() >= 5 &&
+             request.resource.data.title.size() <= 200 &&
+             request.resource.data.type in ['blog', 'vlog'];
+    }
+    
+    // Basic rate limiting (check timestamps)
+    function notTooFrequent(lastTime, minIntervalMinutes) {
+      return !('lastUpdated' in resource.data) ||
+             request.time > resource.data.lastUpdated + duration.value(minIntervalMinutes, 'm');
+    }
+    
+    // ===================================
+    // USERS COLLECTION
+    // ===================================
+    
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      
+      allow create: if isSignedIn() && 
+                       isOwner(userId) && 
+                       validUserData();
+      
+      allow update: if isOwner(userId) || isAdmin();
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ===================================
+    // POSTS COLLECTION (Blogs & Vlogs)
+    // ===================================
+    
+    match /posts/{postId} {
+      allow read: if true; // Public reading
+      
+      allow create: if isAdmin() && 
+                       validPostData();
+      
+      allow update: if isAdmin();
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ===================================
+    // WORKOUTS COLLECTION
+    // ===================================
+    
+    match /workouts/{workoutId} {
+      allow read: if true; // Public reading
+      
+      allow create: if isTrainer() && validWorkoutData();
+      
+      allow update: if isTrainer();
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ===================================
+    // DIET PLANS COLLECTION
+    // ===================================
+    
+    match /dietPlans/{planId} {
+      allow read: if isPremium() || isTrainer();
+      
+      allow create: if isTrainer();
+      
+      allow update: if isTrainer();
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ===================================
+    // USER PROGRESS (Sub-collections)
+    // ===================================
+    
+    match /userProgress/{userId}/{document=**} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId);
+    }
+    
+    // ===================================
+    // LIVE SESSIONS
+    // ===================================
+    
+    match /liveSessions/{sessionId} {
+      allow read: if true; // Anyone can see schedule
+      
+      allow create: if isTrainer();
+      
+      allow update: if isTrainer();
+      
+      allow delete: if isAdmin();
+      
+      // Session attendance tracking
+      match /attendance/{userId} {
+        allow read: if isOwner(userId) || isTrainer();
+        
+        allow create: if isSignedIn() && isOwner(userId);
+        
+        allow delete: if isOwner(userId);
+      }
+    }
+    
+    // ===================================
+    // USER STATS & GAMIFICATION
+    // ===================================
+    
+    match /userStats/{userId} {
+      allow read: if isOwner(userId);
+      
+      allow write: if isOwner(userId);
+    }
+    
+    match /achievements/{achievementId} {
+      allow read: if true; // Public achievement definitions
+      
+      allow write: if isAdmin();
+    }
+    
+    // ===================================
+    // NEWSLETTER SUBSCRIPTIONS
+    // ===================================
+    
+    match /newsletter/{emailHash} {
+      allow read: if isAdmin();
+      
+      allow create: if true; // Anyone can subscribe
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ===================================
+    // COMMENTS
+    // ===================================
+    
+    match /comments/{commentId} {
+      allow read: if true; // Public reading
+      
+      allow create: if isSignedIn() && 
+                       request.resource.data.content is string &&
+                       request.resource.data.content.size() >= 1 &&
+                       request.resource.data.content.size() <= 500 &&
+                       request.resource.data.userId == request.auth.uid;
+      
+      allow update: if isOwner(request.resource.data.userId) || isAdmin();
+      
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+    
+    // ===================================
+    // ANALYTICS (Admin Only)
+    // ===================================
+    
+    match /analytics/{document=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // ===================================
+    // SYSTEM CONFIG (Admin Only)
+    // ===================================
+    
+    match /systemConfig/{document=**} {
+      allow read: if isSignedIn();
+      
+      allow write: if isAdmin();
+    }
+    
+    // ===================================
+    // SCHEDULED NOTIFICATIONS
+    // ===================================
+    
+    match /scheduledNotifications/{notificationId} {
+      allow read: if isAdmin();
+      
+      allow create: if isSignedIn();
+      
+      allow update, delete: if isAdmin();
+    }
+    
+    // ===================================
+    // DEFAULT DENY ALL
+    // ===================================
+    // Any collection not explicitly mentioned above is denied by default
+  }
+}

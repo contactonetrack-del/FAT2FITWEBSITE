@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FIT2FAT XPRESS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .dashboard-container {
+            padding-top: 120px;
+            padding-bottom: var(--s-8);
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--s-6);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: var(--s-6);
+        }
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-section {
+            padding: var(--s-6);
+        }
+        .posts-list {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: var(--s-2);
+        }
+        .post-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: var(--s-3);
+            margin-bottom: var(--s-3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-item h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--c-white);
+        }
+        .post-item span {
+            font-size: 0.75rem;
+            color: var(--c-text-muted);
+        }
+        .post-actions {
+            display: flex;
+            gap: var(--s-1);
+        }
+        .delete-btn, .edit-btn {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .edit-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        .delete-btn:hover {
+            background: rgba(255, 68, 68, 0.4);
+        }
+        .edit-btn:hover {
+            background: rgba(16, 185, 129, 0.4);
+        }
+        
+        .form-group {
+            margin-bottom: var(--s-4);
+        }
+        .form-label {
+            display: block;
+            margin-bottom: var(--s-2);
+            color: #e5e7eb;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: var(--s-3);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--c-primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .inline-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--s-3);
+        }
+        @media (max-width: 640px) {
+            .inline-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: var(--s-3);
+            border-radius: var(--radius);
+            margin-bottom: var(--s-4);
+            display: none;
+        }
+        .error-message {
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            padding: var(--s-3);
+            border-radius: var(--radius);
+            margin-bottom: var(--s-4);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                <div class="logo-text">
+                    <span class="logo-main gradient-text">FIT2FAT</span>
+                    <span class="logo-sub">XPRESS</span>
+                </div>
+            </a>
+            <div class="header-actions">
+                <span id="adminEmail" style="color: var(--c-text-muted); font-size: 0.875rem; margin-right: var(--s-3);"></span>
+                <button id="logoutBtn" class="btn btn-outline">
+                    <span>Logout</span>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <div class="badge badge-pill">Content Management System</div>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="dashboard-grid">
+            <!-- Create Post Form -->
+            <div class="card glass form-section">
+                <h2 style="margin-bottom: var(--s-4); color: var(--c-primary);" id="formTitle">Create New Post</h2>
+                
+                <form id="createPostForm">
+                    <div class="form-group">
+                        <label class="form-label">Post Type</label>
+                        <select id="postType" class="form-select" required>
+                            <option value="blog">Blog Article</option>
+                            <option value="vlog">Video Log (Vlog)</option>
+                        </select>
+                    </div>
+
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" id="postTitle" class="form-input" required placeholder="Enter post title...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Author</label>
+                            <input type="text" id="postAuthor" class="form-input" required placeholder="e.g. Shiney">
+                        </div>
+                    </div>
+
+                    <div class="inline-fields">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <input type="text" id="postCategory" class="form-input" placeholder="e.g. Yoga, Nutrition">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Featured Post</label>
+                            <select id="postFeatured" class="form-select">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Thumbnail Image URL</label>
+                        <input type="url" id="postImage" class="form-input" placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <div class="form-group" id="videoUrlGroup" style="display: none;">
+                        <label class="form-label">YouTube Video ID</label>
+                        <input type="text" id="postVideoId" class="form-input" placeholder="e.g. dQw4w9WgXcQ">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Excerpt (Short Description)</label>
+                        <textarea id="postExcerpt" class="form-textarea" required placeholder="Brief summary for the card..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Full Content</label>
+                        <textarea id="postContent" class="form-textarea" required placeholder="Write your full content here..." style="min-height: 300px;"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitButton" class="btn btn-primary" style="width: 100%;">
+                        <span id="submitButtonText">Publish Post</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Manage Posts -->
+            <div class="card glass form-section">
+                <h2 style="margin-bottom: var(--s-4);">Recent Posts</h2>
+                <div id="postsList" class="posts-list">
+                    <div style="text-align: center; color: var(--c-text-muted); padding: var(--s-4);">
+                        <i class="fas fa-spinner fa-spin"></i> Loading posts...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { auth, db } from './firebase-config.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+        import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        let editingPostId = null;
+
+        // Auth Protection
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'admin-login.html';
+            } else {
+                document.getElementById('adminEmail').textContent = user.email;
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            signOut(auth).then(() => window.location.href = 'admin-login.html');
+        });
+
+        // Toggle Video Input
+        const postType = document.getElementById('postType');
+        const videoUrlGroup = document.getElementById('videoUrlGroup');
+        postType.addEventListener('change', (e) => {
+            videoUrlGroup.style.display = e.target.value === 'vlog' ? 'block' : 'none';
+        });
+
+        // Show Message
+        function showMessage(message, isError = false) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            if (isError) {
+                errorMsg.textContent = message;
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                setTimeout(() => errorMsg.style.display = 'none', 5000);
+            } else {
+                successMsg.textContent = message;
+                successMsg.style.display = 'block';
+                errorMsg.style.display = 'none';
+                setTimeout(() => successMsg.style.display = 'none', 5000);
+            }
+        }
+
+        // Create/Update Post
+        const createPostForm = document.getElementById('createPostForm');
+        createPostForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!auth.currentUser) {
+                showMessage('Error: You appear to be logged out. Please refresh the page.', true);
+                return;
+            }
+
+            const btn = document.getElementById('submitButton');
+            const originalText = btn.innerHTML;
+            
+            try {
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${editingPostId ? 'Updating...' : 'Publishing...'}`;
+                btn.disabled = true;
+
+                const type = document.getElementById('postType').value;
+                const postData = {
+                    type: type,
+                    title: document.getElementById('postTitle').value,
+                    author: document.getElementById('postAuthor').value,
+                    image: document.getElementById('postImage').value || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
+                    excerpt: document.getElementById('postExcerpt').value,
+                    content: document.getElementById('postContent').value,
+                    category: document.getElementById('postCategory').value || 'General',
+                    featured: document.getElementById('postFeatured').value === 'true',
+                    updatedAt: serverTimestamp()
+                };
+
+                if (type === 'vlog') {
+                    postData.videoId = document.getElementById('postVideoId').value || '';
+                }
+
+                if (editingPostId) {
+                    await updateDoc(doc(db, "posts", editingPostId), postData);
+                    showMessage('Post updated successfully!');
+                    editingPostId = null;
+                    document.getElementById('formTitle').textContent = 'Create New Post';
+                    document.getElementById('submitButtonText').textContent = 'Publish Post';
+                } else {
+                    postData.createdAt = serverTimestamp();
+                    postData.date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    await addDoc(collection(db, "posts"), postData);
+                    showMessage('Post published successfully!');
+                }
+                
+                createPostForm.reset();
+                videoUrlGroup.style.display = 'none';
+            } catch (error) {
+                console.error("Error saving post:", error);
+                showMessage('Error: ' + error.message, true);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Load Posts
+        const postsList = document.getElementById('postsList');
+        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        
+        onSnapshot(q, (snapshot) => {
+            postsList.innerHTML = '';
+            if (snapshot.empty) {
+                postsList.innerHTML = '<div style="text-align: center; color: var(--c-text-muted);">No posts found.</div>';
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const post = docSnap.data();
+                const div = document.createElement('div');
+                div.className = 'post-item';
+                div.innerHTML = `
+                    <div>
+                        <h4>${post.title || 'Untitled'}</h4>
+                        <span>${(post.type || 'blog').toUpperCase()} • ${post.date || 'No date'}</span>
+                        ${post.featured ? '<span style="color: #10b981; font-size: 0.75rem;"><i class="fas fa-star"></i> Featured</span>' : ''}
+                    </div>
+                    <div class="post-actions">
+                        <button class="edit-btn" onclick="editPost('${docSnap.id}')" title="Edit Post">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" onclick="deletePost('${docSnap.id}')" title="Delete Post">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                postsList.appendChild(div);
+            });
+        }, (error) => {
+            console.error("Error loading posts:", error);
+            postsList.innerHTML = '<div style="text-align: center; color: #ff4444;">Error loading posts</div>';
+        });
+
+        // Edit Post
+        window.editPost = async (postId) => {
+            try {
+                const docRef = doc(db, "posts", postId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const post = docSnap.data();
+                    editingPostId = postId;
+                    
+                    document.getElementById('formTitle').textContent = 'Edit Post';
+                    document.getElementById('submitButtonText').textContent = 'Update Post';
+                    
+                    document.getElementById('postType').value = post.type || 'blog';
+                    document.getElementById('postTitle').value = post.title || '';
+                    document.getElementById('postAuthor').value = post.author || '';
+                    document.getElementById('postImage').value = post.image || '';
+                    document.getElementById('postExcerpt').value = post.excerpt || '';
+                    document.getElementById('postContent').value = post.content || '';
+                    document.getElementById('postCategory').value = post.category || '';
+                    document.getElementById('postFeatured').value = post.featured ? 'true' : 'false';
+                    
+                    if (post.type === 'vlog') {
+                        videoUrlGroup.style.display = 'block';
+                        document.getElementById('postVideoId').value = post.videoId || '';
+                    }
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            } catch (error) {
+                console.error("Error loading post:", error);
+                showMessage('Error loading post: ' + error.message, true);
+            }
+        };
+
+        // Delete Post
+        window.deletePost = async (id) => {
+            if (!auth.currentUser) {
+                showMessage('Error: You must be logged in to delete posts.', true);
+                return;
+            }
+
+            if (confirm('Are you sure you want to delete this post?')) {
+                try {
+                    await deleteDoc(doc(db, "posts", id));
+                    showMessage('Post deleted successfully!');
+                } catch (error) {
+                    console.error("Error deleting post:", error);
+                    showMessage('Error deleting post: ' + error.message, true);
+                }
+            }
+        };
+    </script>
+</body>
+</html>

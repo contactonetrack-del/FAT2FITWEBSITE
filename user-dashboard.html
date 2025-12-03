@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- SEO Meta Tags -->
+    <title>My Dashboard - FIT2FAT XPRESS</title>
+    <meta
+      name="description"
+      content="Track your fitness progress, schedule workouts, and achieve your goals with your personalized dashboard."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="/Logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#667eea" />
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/responsive-fixes.css" />
+    <link rel="stylesheet" href="css/dashboard-styles.css" />
+  </head>
+  <body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <img src="Logo.png" alt="Logo" class="logo-icon-img" />
+          <div class="logo-text">
+            <span class="logo-main gradient-text">FIT2FAT</span>
+            <span class="logo-sub">XPRESS</span>
+          </div>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="user-dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="live-sessions.html" class="nav-link">Live Sessions</a>
+          <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+          <a href="blog.html" class="nav-link">Blog</a>
+          <a href="#programs" class="nav-link">Programs</a>
+          <a href="#nutrition" class="nav-link">Nutrition</a>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            class="btn-icon"
+            id="notificationBtn"
+            aria-label="Notifications"
+          >
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn btn-secondary" id="logoutBtn">
+            <span>Logout</span>
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+          <button
+            class="btn-mobile"
+            id="mobileMenuBtn"
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-main">
+      <div class="container">
+        <!-- Welcome Section -->
+        <section class="dashboard-welcome">
+          <div class="welcome-content">
+            <h1 class="dashboard-title">
+              Welcome back, <span id="userName">User</span>! 👋
+            </h1>
+            <p class="dashboard-subtitle">
+              Here's your fitness journey at a glance
+            </p>
+          </div>
+          <div class="welcome-actions">
+            <button class="btn btn-primary" id="startWorkoutBtn">
+              <i class="fas fa-dumbbell"></i>
+              <span>Start Workout</span>
+            </button>
+            <button class="btn btn-secondary" id="logMealBtn">
+              <i class="fas fa-utensils"></i>
+              <span>Log Meal</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Stats Overview Cards -->
+        <section class="stats-grid">
+          <!-- Streak Card -->
+          <div class="stat-card glass">
+            <div
+              class="stat-icon"
+              style="background: linear-gradient(135deg, #f093fb, #f5576c)"
+            >
+              <i class="fas fa-fire"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="streakValue">0</h3>
+              <p class="stat-label">Day Streak 🔥</p>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>Keep it up!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Workouts Card -->
+          <div class="stat-card glass">
+            <div
+              class="stat-icon"
+              style="background: linear-gradient(135deg, #667eea, #764ba2)"
+            >
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="workoutsValue">0</h3>
+              <p class="stat-label">Workouts This Week</p>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span id="workoutsChange">+0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calories Card -->
+          <div class="stat-card glass">
+            <div
+              class="stat-icon"
+              style="background: linear-gradient(135deg, #10b981, #059669)"
+            >
+              <i class="fas fa-fire-alt"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="caloriesValue">0</h3>
+              <p class="stat-label">Calories Burned</p>
+              <div class="stat-change positive">
+                <i class="fas fa-check-circle"></i>
+                <span id="caloriesGoal">Goal: 2000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weight Card -->
+          <div class="stat-card glass">
+            <div
+              class="stat-icon"
+              style="background: linear-gradient(135deg, #3b82f6, #1d4ed8)"
+            >
+              <i class="fas fa-weight"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value" id="weightValue">0</h3>
+              <p class="stat-label">Current Weight (kg)</p>
+              <div class="stat-change" id="weightChange">
+                <i class="fas fa-minus"></i>
+                <span>-0.0 kg this week</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Quick Actions / Features -->
+            <section class="dashboard-card glass" style="grid-column: 1 / -1;">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-bolt"></i>
+                        Quick Access
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-2" style="gap: var(--s-4);">
+                        <!-- Live Sessions Card -->
+                        <div class="glass" style="padding: var(--s-4); display: flex; align-items: center; gap: var(--s-4); cursor: pointer; transition: var(--transition);" onclick="window.location.href='live-sessions.html'">
+                            <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #ff6b6b, #feca57); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Live Sessions</h3>
+                                <p style="margin: 0; font-size: 0.85rem; color: var(--c-text-muted);">Join workouts & expert talks</p>
+                            </div>
+                            <i class="fas fa-chevron-right" style="margin-left: auto; color: var(--c-text-muted);"></i>
+                        </div>
+
+                        <!-- Leaderboard Card -->
+                        <div class="glass" style="padding: var(--s-4); display: flex; align-items: center; gap: var(--s-4); cursor: pointer; transition: var(--transition);" onclick="window.location.href='leaderboard.html'">
+                            <div style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #48dbfb, #2e86de); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Leaderboard</h3>
+                                <p style="margin: 0; font-size: 0.85rem; color: var(--c-text-muted);">Compete & track rankings</p>
+                            </div>
+                            <i class="fas fa-chevron-right" style="margin-left: auto; color: var(--c-text-muted);"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+          <!-- Progress Chart Section -->
+          <section class="dashboard-card glass">
+            <div class="card-header">
+              <h2 class="card-title">
+                <i class="fas fa-chart-line"></i>
+                Progress Overview
+              </h2>
+              <div class="card-actions">
+                <select class="select-dropdown" id="chartPeriod">
+                  <option value="7">Last 7 Days</option>
+                  <option value="30" selected>Last 30 Days</option>
+                  <option value="90">Last 90 Days</option>
+                </select>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="progressChart" height="250"></canvas>
+            </div>
+          </section>
+
+          <!-- Workout Schedule Section -->
+          <section class="dashboard-card glass">
+            <div class="card-header">
+              <h2 class="card-title">
+                <i class="fas fa-calendar-alt"></i>
+                This Week's Schedule
+              </h2>
+              <button class="btn btn-sm btn-primary" id="addWorkoutBtn">
+                <i class="fas fa-plus"></i>
+                <span>Add</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="schedule-list" id="scheduleList">
+                <!-- Schedule items will be dynamically inserted -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Goals & Achievements Section -->
+          <section class="dashboard-card glass">
+            <div class="card-header">
+              <h2 class="card-title">
+                <i class="fas fa-trophy"></i>
+                Goals & Achievements
+              </h2>
+              <button class="btn btn-sm btn-secondary" id="setGoalBtn">
+                <i class="fas fa-target"></i>
+                <span>Set Goal</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <!-- Active Goals -->
+              <div class="goals-section">
+                <h3 class="section-subtitle">Active Goals</h3>
+                <div class="goals-list" id="goalsList">
+                  <!-- Goals will be dynamically inserted -->
+                </div>
+              </div>
+
+              <!-- Recent Achievements -->
+              <div class="achievements-section">
+                <h3 class="section-subtitle">Recent Achievements</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                  <!-- Achievements will be dynamically inserted -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Nutrition Tracker Section -->
+          <section class="dashboard-card glass">
+            <div class="card-header">
+              <h2 class="card-title">
+                <i class="fas fa-utensils"></i>
+                Today's Nutrition
+              </h2>
+              <button class="btn btn-sm btn-primary" id="logFoodBtn">
+                <i class="fas fa-plus"></i>
+                <span>Log Food</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <!-- Macro Ring Chart -->
+              <div class="nutrition-chart">
+                <canvas id="nutritionChart" height="200"></canvas>
+              </div>
+
+              <!-- Macro Breakdown -->
+              <div class="macros-list">
+                <div class="macro-item">
+                  <div class="macro-label">
+                    <span class="macro-dot" style="background: #667eea"></span>
+                    <span>Protein</span>
+                  </div>
+                  <div class="macro-values">
+                    <span class="macro-current" id="proteinValue">0g</span>
+                    <span class="macro-target">/ 150g</span>
+                  </div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-label">
+                    <span class="macro-dot" style="background: #10b981"></span>
+                    <span>Carbs</span>
+                  </div>
+                  <div class="macro-values">
+                    <span class="macro-current" id="carbsValue">0g</span>
+                    <span class="macro-target">/ 200g</span>
+                  </div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-label">
+                    <span class="macro-dot" style="background: #f093fb"></span>
+                    <span>Fats</span>
+                  </div>
+                  <div class="macro-values">
+                    <span class="macro-current" id="fatsValue">0g</span>
+                    <span class="macro-target">/ 60g</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Meal Log -->
+              <div class="meal-log" id="mealLog">
+                <h4 class="meal-log-title">Today's Meals</h4>
+                <p class="empty-state">
+                  No meals logged yet. Click "Log Food" to start tracking!
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 FIT2FAT XPRESS. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="firebase-config.js"></script>
+
+    <!-- Dashboard Scripts -->
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/charts.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

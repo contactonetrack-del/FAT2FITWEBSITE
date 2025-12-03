@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Live Sessions - FIT2FAT XPRESS</title>
+    <meta name="description" content="Join live fitness sessions with expert trainers. Real-time workouts, nutrition talks, and Q&A sessions.">
+    <meta name="keywords" content="live fitness classes, online training, virtual workouts, live sessions, group fitness">
+    <link rel="canonical" href="https://www.fit2fatxpress.com/live-sessions.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Live Sessions | FIT2FAT XPRESS">
+    <meta property="og:description" content="Join live fitness sessions with expert trainers">
+    <meta property="og:url" content="https://www.fit2fatxpress.com/live-sessions.html">
+    
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/png" href="/Logo.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css">
+    <link rel="stylesheet" href="css/live-sessions-styles.css">
+    <link rel="stylesheet" href="css/gamification-styles.css">
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                <div class="logo-text">
+                    <span class="logo-main gradient-text">FIT2FAT</span>
+                    <span class="logo-sub">XPRESS</span>
+                </div>
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="user-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="live-sessions.html" class="nav-link active">Live Sessions</a>
+                <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn btn-primary" id="joinNowBtn">
+                    <i class="fas fa-video"></i>
+                    <span>Join Now</span>
+                </button>
+                <button class="btn-mobile" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="min-height: 100vh; padding-top: 140px; padding-bottom: var(--s-8);">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" style="text-align: center; margin-bottom: var(--s-6);">
+                <h1 class="hero-title" style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--s-3);">
+                    🎥 Live Sessions
+                </h1>
+                <p class="hero-desc" style="max-width: 600px; margin: 0 auto;">
+                    Join real-time workouts, nutrition talks, and Q&A with expert trainers
+                </p>
+            </div>
+
+            <!-- Live Now Section -->
+            <section id="liveNowSection" class="live-now-section" style="display: none;">
+                <div class="glass live-now-banner">
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span class="live-text">LIVE NOW</span>
+                    </div>
+                    <div class="live-now-content">
+                        <h2 id="liveSessionTitle">Full Body HIIT Workout</h2>
+                        <p id="liveSessionTrainer">with Coach Sarah</p>
+                        <p id="liveSessionViewers"><i class="fas fa-users"></i> 156 watching</p>
+                    </div>
+                    <button class="btn btn-primary btn-pulse" onclick="joinLiveSession()">
+                        <i class="fas fa-video"></i>
+                        <span>Join Live Session</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Upcoming Sessions -->
+            <section class="sessions-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Upcoming Sessions
+                </h2>
+                
+                <div class="sessions-grid" id="upcomingSessionsGrid">
+                    <!-- Sessions will be dynamically inserted -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="noSessionsMessage" style="text-align: center; padding: var(--s-8); display: none;">
+                    <div style="font-size: 4rem; margin-bottom: var(--s-3);">📅</div>
+                    <h3 style="margin-bottom: var(--s-2);">No Upcoming Sessions</h3>
+                    <p style="color: var(--c-text-muted);">Check back soon for new live sessions!</p>
+                </div>
+            </section>
+
+            <!-- Past Sessions -->
+            <section class="sessions-section">
+                <h2 class="section-title">
+                    <i class="fas fa-history"></i>
+                    Past Sessions (Recordings)
+                </h2>
+                
+                <div class="sessions-grid" id="pastSessionsGrid">
+                    <!-- Past sessions will be dynamically inserted -->
+                </div>
+            </section>
+
+            <!-- Session Types -->
+            <section class="session-types-section">
+                <h2 class="section-title">Session Types</h2>
+                
+                <div class="session-types-grid">
+                    <div class="session-type-card glass">
+                        <div class="session-type-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>Workout Sessions</h3>
+                        <p>HIIT, Strength Training, Cardio, Yoga, and more</p>
+                        <span class="session-type-badge">Daily</span>
+                    </div>
+
+                    <div class="session-type-card glass">
+                        <div class="session-type-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Nutrition Talks</h3>
+                        <p>Meal planning, macros, supplements, and diet tips</p>
+                        <span class="session-type-badge">Weekly</span>
+                    </div>
+
+                    <div class="session-type-card glass">
+                        <div class="session-type-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Q&A Sessions</h3>
+                        <p>Ask trainers anything about fitness and health</p>
+                        <span class="session-type-badge">Bi-weekly</span>
+                    </div>
+
+                    <div class="session-type-card glass">
+                        <div class="session-type-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Challenges</h3>
+                        <p>Group challenges and competitions with prizes</p>
+                        <span class="session-type-badge">Monthly</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Session Detail Modal -->
+    <div id="sessionModal" class="modal">
+        <div class="modal-overlay" onclick="closeSessionModal()"></div>
+        <div class="modal-content session-modal-content glass">
+            <button class="modal-close" onclick="closeSessionModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="session-modal-body">
+                <!-- Countdown Section -->
+                <div class="session-countdown" id="sessionCountdown">
+                    <h3>Session starting in:</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <span class="countdown-value" id="countdownDays">00</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-value" id="countdownHours">00</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-value" id="countdownMinutes">00</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-value" id="countdownSeconds">00</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Info -->
+                <div class="session-info">
+                    <h2 id="modalSessionTitle">Session Title</h2>
+                    <div class="session-meta">
+                        <span><i class="fas fa-user"></i> <span id="modalSessionTrainer">Trainer</span></span>
+                        <span><i class="fas fa-clock"></i> <span id="modalSessionDuration">45 min</span></span>
+                        <span><i class="fas fa-users"></i> <span id="modalSessionSlots">50 spots</span></span>
+                        <span><i class="fas fa-signal"></i> <span id="modalSessionLevel">All Levels</span></span>
+                    </div>
+                    <p id="modalSessionDescription">Session description goes here...</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="session-actions">
+                    <button class="btn btn-primary btn-lg" id="bookSessionBtn">
+                        <i class="fas fa-check"></i>
+                        <span>Book Your Spot</span>
+                    </button>
+                    <button class="btn btn-secondary btn-lg" id="addToCalendarBtn">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Add to Calendar</span>
+                    </button>
+                </div>
+
+                <!-- Booked Users -->
+                <div class="booked-users">
+                    <h4>Who's Joining (<span id="bookedCount">0</span>)</h4>
+                    <div class="booked-avatars" id="bookedAvatars">
+                        <!-- Avatars will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FIT2FAT XPRESS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="firebase-config.js"></script>
+    
+    <!-- Live Sessions Scripts -->
+    <script type="module" src="js/live-sessions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

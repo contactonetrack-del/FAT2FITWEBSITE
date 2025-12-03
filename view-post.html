@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post - FIT2FAT XPRESS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .post-container {
+            padding-top: 120px;
+            padding-bottom: var(--s-8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .post-header {
+            margin-bottom: var(--s-6);
+        }
+        .post-meta {
+            display: flex;
+            gap: var(--s-4);
+            margin-bottom: var(--s-4);
+            color: var(--c-text-muted);
+            font-size: 0.875rem;
+        }
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: var(--s-1);
+        }
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--s-3);
+            line-height: 1.2;
+        }
+        .post-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: var(--s-6);
+        }
+        .post-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--c-text);
+        }
+        .post-content h1,
+        .post-content h2,
+        .post-content h3 {
+            margin-top: var(--s-6);
+            margin-bottom: var(--s-3);
+            color: var(--c-white);
+        }
+        .post-content p {
+            margin-bottom: var(--s-4);
+        }
+        .post-content ul,
+        .post-content ol {
+            margin-bottom: var(--s-4);
+            padding-left: var(--s-5);
+        }
+        .post-content li {
+            margin-bottom: var(--s-2);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin-bottom: var(--s-6);
+            border-radius: var(--radius);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--s-2);
+            margin-bottom: var(--s-4);
+            color: var(--c-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .back-link:hover {
+            gap: var(--s-3);
+        }
+        .loading {
+            text-align: center;
+            padding: var(--s-8);
+            color: var(--c-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header glass" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                <div class="logo-text">
+                    <span class="logo-main gradient-text">FIT2FAT</span>
+                    <span class="logo-sub">XPRESS</span>
+                </div>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#programs" class="nav-link">Programs</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn btn-primary">
+                    <span>Start Free Trial</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn-mobile" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container post-container">
+        <a href="blog.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Blog</span>
+        </a>
+
+        <div id="postContent" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading post...
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer glass">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="Logo.png" alt="Logo" class="logo-icon-img">
+                        <div class="logo-text">
+                            <span class="logo-main gradient-text">FIT2FAT</span>
+                            <span class="logo-sub">XPRESS</span>
+                        </div>
+                    </div>
+                    <p>Transform your fitness journey with our premium platform.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FIT2FAT XPRESS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+        const postContent = document.getElementById('postContent');
+
+        if (!postId) {
+            postContent.innerHTML = '<p style="color: #ff4444;">Post not found</p>';
+        } else {
+            async function loadPost() {
+                try {
+                    const docRef = doc(db, "posts", postId);
+                    const docSnap = await getDoc(docRef);
+
+                    if (docSnap.exists()) {
+                        const post = docSnap.data();
+                        const isVlog = post.type === 'vlog';
+
+                        document.title = `${post.title} - FIT2FAT XPRESS`;
+
+                        let videoEmbed = '';
+                        if (isVlog && post.videoId) {
+                            videoEmbed = `
+                                <div class="video-container">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/${post.videoId}" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            `;
+                        }
+
+                        postContent.innerHTML = `
+                            <article class="post-header">
+                                <div class="badge badge-pill">${post.category || 'General'}</div>
+                                <h1 class="post-title">${post.title}</h1>
+                                <div class="post-meta">
+                                    <span><i class="far fa-user"></i> ${post.author}</span>
+                                    <span><i class="far fa-calendar"></i> ${post.date}</span>
+                                    ${isVlog ? '' : `<span><i class="far fa-clock"></i> ${post.readTime || '5 min read'}</span>`}
+                                </div>
+                            </article>
+                            ${post.image && !isVlog ? `<img src="${post.image}" alt="${post.title}" class="post-image">` : ''}
+                            ${videoEmbed}
+                            <div class="post-content">
+                                ${post.content}
+                            </div>
+                        `;
+                    } else {
+                        postContent.innerHTML = '<p style="color: #ff4444;">Post not found</p>';
+                    }
+                } catch (error) {
+                    console.error("Error loading post:", error);
+                    postContent.innerHTML = '<p style="color: #ff4444;">Error loading post</p>';
+                }
+            }
+
+            loadPost();
+        }
+    </script>
+</body>
+</html>
