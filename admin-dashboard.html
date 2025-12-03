@@ -312,6 +312,12 @@
         const createPostForm = document.getElementById('createPostForm');
         createPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            if (!auth.currentUser) {
+                showMessage('Error: You appear to be logged out. Please refresh the page.', true);
+                return;
+            }
+
             const btn = document.getElementById('submitButton');
             const originalText = btn.innerHTML;
             
@@ -434,6 +440,11 @@
 
         // Delete Post
         window.deletePost = async (id) => {
+            if (!auth.currentUser) {
+                showMessage('Error: You must be logged in to delete posts.', true);
+                return;
+            }
+
             if (confirm('Are you sure you want to delete this post?')) {
                 try {
                     await deleteDoc(doc(db, "posts", id));
