@@ -269,14 +269,20 @@
         import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
         // Initialize TinyMCE
-        tinymce.init({
-            selector: '#postContent',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-            skin: 'oxide-dark',
-            content_css: 'dark',
-            height: 400
-        });
+        if (typeof tinymce !== 'undefined') {
+            tinymce.init({
+                selector: '#postContent',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                height: 400
+            });
+        } else {
+            console.error("TinyMCE not loaded");
+            // Fallback: Ensure textarea is visible if TinyMCE fails
+            document.getElementById('postContent').style.display = 'block';
+        }
 
         let editingPostId = null;
 
@@ -343,7 +349,7 @@
                     author: document.getElementById('postAuthor').value,
                     image: document.getElementById('postImage').value || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
                     excerpt: document.getElementById('postExcerpt').value,
-                    content: tinymce.get('postContent').getContent(),
+                    content: (typeof tinymce !== 'undefined' && tinymce.get('postContent')) ? tinymce.get('postContent').getContent() : document.getElementById('postContent').value,
                     category: document.getElementById('postCategory').value || 'General',
                     featured: document.getElementById('postFeatured').value === 'true',
                     updatedAt: serverTimestamp()
@@ -367,7 +373,7 @@
                 }
                 
                 createPostForm.reset();
-                if (tinymce.get('postContent')) {
+                if (typeof tinymce !== 'undefined' && tinymce.get('postContent')) {
                     tinymce.get('postContent').setContent('');
                 }
                 videoUrlGroup.style.display = 'none';
@@ -435,8 +441,8 @@
                     document.getElementById('postAuthor').value = post.author || '';
                     document.getElementById('postImage').value = post.image || '';
                     document.getElementById('postExcerpt').value = post.excerpt || '';
-                    // document.getElementById('postContent').value = post.content || '';
-                    if (tinymce.get('postContent')) {
+                    document.getElementById('postContent').value = post.content || ''; // Fallback
+                    if (typeof tinymce !== 'undefined' && tinymce.get('postContent')) {
                         tinymce.get('postContent').setContent(post.content || '');
                     }
                     document.getElementById('postCategory').value = post.category || '';
