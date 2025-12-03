@@ -11,40 +11,57 @@
     <link rel="stylesheet" href="styles.css">
     
     <style>
-        .post-container {
+        .blog-post-full {
             padding-top: 120px;
             padding-bottom: var(--s-8);
-            max-width: 800px;
-            margin: 0 auto;
         }
         .post-header {
+            text-align: center;
             margin-bottom: var(--s-6);
         }
-        .post-meta {
+        .post-header h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: var(--s-3);
+            color: var(--c-white);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+        .post-header .badge {
+            margin-bottom: var(--s-3);
+            display: inline-flex;
+        }
+        .blog-meta {
+            justify-content: center;
             display: flex;
             gap: var(--s-4);
-            margin-bottom: var(--s-4);
             color: var(--c-text-muted);
-            font-size: 0.875rem;
+            font-size: 0.9rem;
         }
-        .post-meta span {
+        .blog-meta span {
             display: flex;
             align-items: center;
             gap: var(--s-1);
         }
-        .post-title {
-            font-size: 2.5rem;
-            margin-bottom: var(--s-3);
-            line-height: 1.2;
-        }
-        .post-image {
+        .post-image-hero {
             width: 100%;
-            height: 400px;
-            object-fit: cover;
+            max-width: 1200px;
+            margin: 0 auto var(--s-6);
             border-radius: var(--radius);
-            margin-bottom: var(--s-6);
+            overflow: hidden;
+            height: 500px;
+            box-shadow: var(--shadow-lg);
+        }
+        .post-image-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .post-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--s-6);
             font-size: 1.125rem;
             line-height: 1.8;
             color: var(--c-text);
@@ -54,7 +71,7 @@
         .post-content h3 {
             margin-top: var(--s-6);
             margin-bottom: var(--s-3);
-            color: var(--c-white);
+            color: var(--c-white); /* Or var(--c-primary) depending on theme */
         }
         .post-content p {
             margin-bottom: var(--s-4);
@@ -74,6 +91,7 @@
             overflow: hidden;
             margin-bottom: var(--s-6);
             border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
         }
         .video-container iframe {
             position: absolute;
@@ -83,22 +101,33 @@
             height: 100%;
             border: none;
         }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--s-2);
-            margin-bottom: var(--s-4);
-            color: var(--c-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .back-link:hover {
-            gap: var(--s-3);
-        }
         .loading {
             text-align: center;
             padding: var(--s-8);
             color: var(--c-text-muted);
+            padding-top: 150px;
+        }
+        .section-actions {
+            margin-top: var(--s-6);
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: var(--s-6);
+        }
+        
+        @media (max-width: 768px) {
+            .post-image-hero {
+                height: 300px;
+                border-radius: 0;
+            }
+            .post-content {
+                padding: var(--s-4);
+                border-radius: 0;
+            }
+            .blog-meta {
+                flex-direction: column;
+                gap: var(--s-2);
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -146,12 +175,7 @@
         </div>
     </header>
 
-    <main class="container post-container">
-        <a href="blog.html" class="back-link">
-            <i class="fas fa-arrow-left"></i>
-            <span>Back to Blog</span>
-        </a>
-
+    <main>
         <div id="postContent" class="loading">
             <i class="fas fa-spinner fa-spin"></i> Loading post...
         </div>
@@ -215,28 +239,40 @@
                         }
 
                         postContent.innerHTML = `
-                            <div class="card glass" style="padding: var(--s-6);">
-                                <article class="post-header">
-                                    <div class="badge badge-pill">${post.category || 'General'}</div>
-                                    <h1 class="post-title">${post.title}</h1>
-                                    <div class="post-meta">
-                                        <span><i class="far fa-user"></i> ${post.author}</span>
-                                        <span><i class="far fa-calendar"></i> ${post.date}</span>
-                                        ${isVlog ? '' : `<span><i class="far fa-clock"></i> ${post.readTime || '5 min read'}</span>`}
+                            <article class="blog-post-full">
+                                <header class="post-header">
+                                    <div class="container">
+                                        <div class="badge">${post.category || 'General'}</div>
+                                        <h1>${post.title}</h1>
+                                        <div class="blog-meta">
+                                            <span><i class="far fa-user"></i> ${post.author}</span>
+                                            <span><i class="far fa-calendar"></i> ${post.date}</span>
+                                            ${isVlog ? '' : `<span><i class="far fa-clock"></i> ${post.readTime || '5 min read'}</span>`}
+                                        </div>
                                     </div>
-                                </article>
-                                ${post.image && !isVlog ? `<img src="${post.image}" alt="${post.title}" class="post-image">` : ''}
+                                </header>
+
+                                ${post.image && !isVlog ? `
+                                    <div class="post-image-hero">
+                                        <img src="${post.image}" alt="${post.title}">
+                                    </div>
+                                ` : ''}
+                                
                                 ${videoEmbed}
-                                <div class="post-content">
+
+                                <div class="container post-content glass">
+                                    ${post.excerpt ? `<p class="lead" style="font-size: 1.25rem; margin-bottom: var(--s-6); color: var(--c-text-light);">${post.excerpt}</p>` : ''}
+                                    
                                     ${post.content}
+
+                                    <div class="section-actions">
+                                        <a href="blog.html" class="btn btn-outline">
+                                            <i class="fas fa-arrow-left"></i>
+                                            <span>Back to Blog</span>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div style="margin-top: var(--s-6); text-align: center;">
-                                    <a href="blog.html" class="btn btn-outline">
-                                        <i class="fas fa-arrow-left"></i>
-                                        <span>Back to Blog</span>
-                                    </a>
-                                </div>
-                            </div>
+                            </article>
                         `;
                     } else {
                         postContent.innerHTML = '<p style="color: #ff4444;">Post not found</p>';
