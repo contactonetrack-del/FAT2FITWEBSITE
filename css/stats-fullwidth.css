@@ -1,6 +1,6 @@
-/* ===== PREMIUM STATS SECTION - FULL REDESIGN ===== */
+/* ===== PREMIUM STATS SECTION - THEME MATCHED REDESIGN ===== */
 
-/* Stats Wrapper - Full Width with Animated Gradient Background */
+/* Stats Wrapper - Full Width */
 .stats-wrapper {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -10,87 +10,77 @@
   padding: 0;
   position: relative;
   overflow: hidden;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  
+  /* Theme Variables - Matched to Website Style */
+  --stats-bg: rgba(255, 255, 255, 0.25);
+  --stats-glass: rgba(255, 255, 255, 0.3);
+  --stats-border: rgba(255, 255, 255, 0.4);
+  --stats-text: #ffffff;
+  --stats-icon: #ffffff;
+  --stats-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  --stats-card-bg: rgba(255, 255, 255, 0.15);
+  --stats-hover-glow: rgba(255, 255, 255, 0.3);
 }
 
-/* Animated gradient background */
+/* Dark Theme Overrides */
+[data-theme="dark"] .stats-wrapper {
+  --stats-bg: rgba(0, 0, 0, 0.5);
+  --stats-glass: rgba(0, 0, 0, 0.6);
+  --stats-border: rgba(255, 255, 255, 0.1);
+  --stats-text: #ffffff;
+  --stats-icon: rgba(255, 255, 255, 0.95);
+  --stats-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  --stats-card-bg: rgba(0, 0, 0, 0.4);
+  --stats-hover-glow: rgba(255, 255, 255, 0.15);
+}
+
+/* Background Overlay */
 .stats-wrapper::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    rgba(102, 126, 234, 0.15) 0%,
-    rgba(118, 75, 162, 0.15) 25%,
-    rgba(237, 100, 166, 0.15) 50%,
-    rgba(255, 154, 158, 0.15) 75%,
-    rgba(102, 126, 234, 0.15) 100%
-  );
-  animation: gradientShift 15s ease infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes gradientShift {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(5%, 5%) rotate(90deg); }
-  50% { transform: translate(0, 10%) rotate(180deg); }
-  75% { transform: translate(-5%, 5%) rotate(270deg); }
-}
-
-/* Floating particles effect */
-.stats-wrapper::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(237, 100, 166, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-  animation: particleFloat 20s ease-in-out infinite;
-  pointer-events: none;
+  background: var(--stats-bg);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   z-index: 0;
-}
-
-@keyframes particleFloat {
-  0%, 100% { opacity: 0.3; transform: translateY(0); }
-  50% { opacity: 0.6; transform: translateY(-20px); }
+  transition: background 0.3s ease;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 /* Main stats container */
 .stats {
   width: 100%;
   margin: 0;
-  border-radius: 0 !important;
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   border: none !important;
   position: relative;
   z-index: 1;
   
-  /* Premium glassmorphism */
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.06) 50%,
-    rgba(255, 255, 255, 0.12) 100%
-  );
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
-  
-  /* Layered shadows for depth */
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.2),
-    0 2px 8px 0 rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-  
-  /* Subtle borders */
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  /* Glassmorphism */
+  background: var(--stats-glass);
+  box-shadow: var(--stats-shadow);
+  border-top: 1px solid var(--stats-border);
+  border-bottom: 1px solid var(--stats-border);
+  transition: all 0.3s ease;
+}
+
+/* Stats Icons */
+.stat-icon {
+  font-size: 1.75rem;
+  margin-bottom: var(--s-1);
+  color: var(--stats-icon);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 /* Desktop Stats Layout */
@@ -111,51 +101,19 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--s-2);
-    
-    /* Card background */
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.03) 100%
-    );
+    background: var(--stats-card-bg);
     
     /* Subtle inner shadow */
     box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+      0 2px 8px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
     
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
+    border: 1px solid transparent;
   }
   
-  /* Animated gradient overlay on hover */
-  .stat::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-      from 0deg at 50% 50%,
-      rgba(102, 126, 234, 0) 0deg,
-      rgba(102, 126, 234, 0.15) 90deg,
-      rgba(118, 75, 162, 0.15) 180deg,
-      rgba(237, 100, 166, 0.15) 270deg,
-      rgba(102, 126, 234, 0) 360deg
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    z-index: 0;
-  }
-  
-  .stat:hover::before {
-    opacity: 1;
-    transform: rotate(180deg);
-  }
-  
-  /* Glow effect on hover */
+  /* Hover Glow Effect */
   .stat::after {
     content: '';
     position: absolute;
@@ -166,27 +124,26 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(102, 126, 234, 0.3) 0%,
+      var(--stats-hover-glow) 0%,
       transparent 70%
     );
     transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
+    transition: width 0.5s ease, height 0.5s ease;
     z-index: 0;
     pointer-events: none;
   }
   
   .stat:hover::after {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
   }
   
   /* Hover state */
   .stat:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 
-      0 8px 24px rgba(102, 126, 234, 0.4),
-      0 4px 12px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-4px);
+    border-color: var(--stats-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.15);
   }
   
   /* Content above overlays */
@@ -195,30 +152,10 @@
     z-index: 1;
   }
   
-  /* Icon styling */
-  .stat-icon {
-    font-size: 1.75rem;
-    margin-bottom: var(--s-1);
-    
-    /* Vibrant gradient text */
-    background: linear-gradient(
-      135deg,
-      #667eea 0%,
-      #764ba2 50%,
-      #f093fb 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    filter: drop-shadow(0 2px 6px rgba(102, 126, 234, 0.3));
-    transition: all 0.4s ease;
-    display: inline-block;
-  }
-  
   .stat:hover .stat-icon {
-    transform: translateY(-4px) scale(1.1) rotate(5deg);
-    filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.6));
+    transform: scale(1.1);
+    color: var(--stats-text);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
   }
   
   /* Number styling */
@@ -227,20 +164,9 @@
     font-weight: 800;
     margin-bottom: var(--s-1);
     line-height: 1.2;
-    
-    /* Glossy text effect */
-    background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      rgba(255, 255, 255, 0.9) 50%,
-      rgba(255, 255, 255, 0.7) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    color: var(--stats-text);
     letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
   }
   
@@ -254,15 +180,15 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.85;
-    color: rgba(255, 255, 255, 0.9);
+    opacity: 0.9;
+    color: var(--stats-text);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
   }
   
   .stat:hover .stat-label {
     opacity: 1;
     letter-spacing: 1.5px;
-    color: #ffffff;
   }
   
   /* Remove dividers */
