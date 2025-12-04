@@ -1,0 +1,45 @@
+/* Stats Wrapper - Full Width on All Screens */
+.stats-wrapper {
+  width: 100%;
+  margin: var(--s-4) 0;
+}
+
+/* Stats Icons */
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: var(--s-2);
+  opacity: 0.9;
+}
+
+/* Desktop Stats */
+@media (min-width: 768px) {
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--s-5) var(--s-4);
+    min-height: 120px;
+  }
+  
+  .stat {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: var(--s-1);
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+  
+  .stat-divider {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
