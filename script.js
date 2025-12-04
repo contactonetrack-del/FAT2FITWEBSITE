@@ -2688,3 +2688,234 @@ window.connectDevice = function(deviceName) {
         showGlassNotification(`${deviceName} connected successfully! 🎉`, 'success', 3000);
     }, 2000);
 };
+
+// =============================================
+// VIDEO MODAL FUNCTIONS
+// =============================================
+
+window.openVideoModal = function() {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('demoVideo');
+    if (modal && iframe) {
+        // Try the original video first, fallback if needed
+        // This is a HIIT cardio workout video
+        const videoId = "ml6cT4AZdqI"; // Original video
+        // Alternative: "gC_L9qAHVJ8" (FitnessBlender HIIT)
+        
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Log for debugging
+        console.log('Loading video:', videoId);
+    }
+};
+
+window.closeVideoModal = function() {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('demoVideo');
+    if (modal && iframe) {
+        modal.classList.remove('active');
+        // Clear source to stop video
+        iframe.src = "";
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+};
+
+// Close modal when clicking outside content
+document.getElementById('videoModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeVideoModal();
+    }
+});
+
+// Bind "Watch Demo" buttons
+// Bind "Watch Demo" buttons
+document.addEventListener('DOMContentLoaded', () => {
+    const watchButtons = document.querySelectorAll('a[href="#demo"], button[onclick="openVideoModal()"]');
+    watchButtons.forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            openVideoModal();
+        };
+    });
+});
+
+// =============================================
+// SIGNUP MODAL FUNCTIONS
+// =============================================
+
+window.openSignupModal = function(mode = 'journey') {
+    const modal = document.getElementById('signupModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Reset to step 1
+        showStep(1);
+        
+        // Handle specific modes
+        if (mode === 'trial') {
+            // Pre-select monthly plan for free trial context if needed
+            const monthlyPlan = document.querySelector('input[name="plan"][value="monthly"]');
+            if (monthlyPlan) monthlyPlan.checked = true;
+        }
+    }
+};
+
+window.closeSignupModal = function() {
+    const modal = document.getElementById('signupModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        // Optional: Reset form after delay
+        setTimeout(() => {
+            document.getElementById('signupForm')?.reset();
+            showStep(1);
+        }, 300);
+    }
+};
+
+window.showStep = function(step) {
+    // Update progress indicators
+    document.querySelectorAll('.progress-step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        if (s <= step) el.classList.add('active');
+        else el.classList.remove('active');
+    });
+
+    // Show step content
+    document.querySelectorAll('.signup-step').forEach(el => {
+        el.classList.remove('active');
+    });
+    document.getElementById(`step${step}`)?.classList.add('active');
+};
+
+window.nextSignupStep = function(targetStep) {
+    // Simple validation for current step
+    const currentStep = targetStep - 1;
+    const currentStepEl = document.getElementById(`step${currentStep}`);
+    const inputs = currentStepEl.querySelectorAll('input[required]');
+    let valid = true;
+    
+    inputs.forEach(input => {
+        if (!input.checkValidity()) {
+            valid = false;
+            input.reportValidity();
+        }
+    });
+
+    if (valid) {
+        showStep(targetStep);
+    }
+};
+
+window.prevSignupStep = function(targetStep) {
+    showStep(targetStep);
+};
+
+window.handleSignup = async function(e) {
+    e.preventDefault();
+    
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalContent = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+    btn.disabled = true;
+    
+    // Collect form data
+    const nameInput = document.querySelector('#step1 input[type="text"]');
+    const emailInput = document.querySelector('#step1 input[type="email"]');
+    const passwordInput = document.querySelector('#step1 input[type="password"]');
+    const goalInput = document.querySelector('input[name="goal"]:checked');
+    const planInput = document.querySelector('input[name="plan"]:checked');
+    
+    const userData = {
+        name: nameInput?.value || '',
+        email: emailInput?.value || '',
+        goal: goalInput?.value || 'weight-loss',
+        plan: planInput?.value || 'monthly',
+        createdAt: new Date().toISOString()
+    };
+    
+    try {
+        // Import Firebase modules
+        const { auth, db } = await import('./firebase-config.js');
+        const { createUserWithEmailAndPassword, updateProfile } = await import('https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js');
+        const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js');
+        
+        // Create user with Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, userData.email, passwordInput?.value || '');
+        const user = userCredential.user;
+        
+        // Update user profile with display name
+        await updateProfile(user, {
+            displayName: userData.name
+        });
+        
+        // Store additional user data in Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+            uid: user.uid,
+            name: userData.name,
+            email: userData.email,
+            goal: userData.goal,
+            plan: userData.plan,
+            planStatus: userData.plan === 'monthly' ? 'trial' : 'active',
+            createdAt: userData.createdAt
+        });
+        
+        closeSignupModal();
+        showGlassNotification('Account created successfully! Welcome to FIT2FAT XPRESS! 🎉', 'success', 5000);
+        
+        // Reset form
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+        
+    } catch (error) {
+        console.error('Signup error:', error);
+        
+        let errorMessage = 'An error occurred. Please try again.';
+        if (error.code === 'auth/email-already-in-use') {
+            errorMessage = 'This email is already registered. Please log in instead.';
+        } else if (error.code === 'auth/weak-password') {
+            errorMessage = 'Password should be at least 6 characters.';
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = 'Please enter a valid email address.';
+        }
+        
+        showGlassNotification(errorMessage, 'error', 5000);
+        
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+    }
+};
+
+// Close modal when clicking outside
+document.getElementById('signupModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeSignupModal();
+    }
+});
+
+// Bind "Start Journey" and "Free Trial" buttons
+document.addEventListener('DOMContentLoaded', () => {
+    // Start Journey buttons
+    const journeyBtns = document.querySelectorAll('a[href="#start"], button.btn-primary:not([type="submit"]):not([onclick])');
+    journeyBtns.forEach(btn => {
+        if (btn.innerText.includes('Start') || btn.innerText.includes('Journey')) {
+            btn.onclick = (e) => {
+                e.preventDefault();
+                openSignupModal('journey');
+            };
+        }
+    });
+
+    // Free Trial buttons (if any specific logic needed)
+    const trialBtns = document.querySelectorAll('a[href="#trial"]');
+    trialBtns.forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            openSignupModal('trial');
+        };
+    });
+});

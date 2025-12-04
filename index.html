@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <!-- SEO Meta Tags -->
     <title>FIT2FAT XPRESS - Transform Your Body with AI-Powered Fitness & Nutrition</title>
     <meta name="description" content="Join 25,000+ members transforming their lives with personalized AI workouts, expert nutrition plans, and live coaching. Start your free 7-day trial today!">
@@ -113,7 +113,7 @@
                         <span>Start Your Journey</span>
                         <i class="fas fa-rocket"></i>
                     </button>
-                    <button class="btn btn-secondary btn-lg">
+                    <button class="btn btn-secondary btn-lg" onclick="openVideoModal()">
                         <span>Watch Demo</span>
                         <i class="fas fa-play"></i>
                     </button>
@@ -121,18 +121,18 @@
 
                 <div class="stats glass">
                     <div class="stat">
-                        <div class="stat-number" data-target="25000">0</div>
-                        <div class="stat-label">Active Members</div>
+                        <div class="stat-number" style="font-size: 2rem;">Certified</div>
+                        <div class="stat-label">Expert Coaches</div>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
-                        <div class="stat-number" data-target="95">0</div>
-                        <div class="stat-label">Success Rate %</div>
+                        <div class="stat-number" style="font-size: 2rem;">Personal</div>
+                        <div class="stat-label">Custom Plans</div>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Expert Trainers</div>
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
                     </div>
                 </div>
             </div>
@@ -708,38 +708,184 @@
         }
     </script>
 
-    <script src="script.js"></script>
-    <script type="module">
-        import { db } from './firebase-config.js';
-        import { collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    <!-- Video Modal -->
+    <div id="videoModal" class="glass-modal">
+        <div class="modal-content video-modal-content">
+            <button class="close-modal" onclick="closeVideoModal()"><i class="fas fa-times"></i></button>
+            <div class="video-container">
+                <iframe id="demoVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+    </div>
 
+    <!-- Signup Modal -->
+    <div id="signupModal" class="glass-modal">
+        <div class="modal-content signup-modal-content glass">
+            <button class="close-modal" onclick="closeSignupModal()"><i class="fas fa-times"></i></button>
+            
+            <div class="signup-progress">
+                <div class="progress-step active" data-step="1">1</div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">2</div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">3</div>
+            </div>
+
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <!-- Step 1: Account Details -->
+                <div class="signup-step active" id="step1">
+                    <h3>Create Your Account</h3>
+                    <p class="step-desc">Start your transformation journey today.</p>
+                    
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-input" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-input" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-input" required placeholder="••••••••">
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary btn-block" onclick="nextSignupStep(2)">
+                        <span>Next Step</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Goals -->
+                <div class="signup-step" id="step2">
+                    <h3>Your Fitness Goals</h3>
+                    <p class="step-desc">Help us personalize your experience.</p>
+                    
+                    <div class="goals-grid">
+                        <label class="goal-card">
+                            <input type="radio" name="goal" value="weight-loss" checked>
+                            <span class="goal-content">
+                                <span class="goal-icon">🔥</span>
+                                <span class="goal-title">Weight Loss</span>
+                            </span>
+                        </label>
+                        <label class="goal-card">
+                            <input type="radio" name="goal" value="muscle">
+                            <span class="goal-content">
+                                <span class="goal-icon">💪</span>
+                                <span class="goal-title">Build Muscle</span>
+                            </span>
+                        </label>
+                        <label class="goal-card">
+                            <input type="radio" name="goal" value="endurance">
+                            <span class="goal-content">
+                                <span class="goal-icon">🏃</span>
+                                <span class="goal-title">Endurance</span>
+                            </span>
+                        </label>
+                        <label class="goal-card">
+                            <input type="radio" name="goal" value="flexibility">
+                            <span class="goal-content">
+                                <span class="goal-icon">🧘</span>
+                                <span class="goal-title">Flexibility</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-outline" onclick="prevSignupStep(1)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSignupStep(3)">
+                            <span>Next Step</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Plan Selection -->
+                <div class="signup-step" id="step3">
+                    <h3>Choose Your Plan</h3>
+                    <p class="step-desc">Select the best plan for your journey.</p>
+                    
+                    <div class="plans-selection">
+                        <label class="plan-option">
+                            <input type="radio" name="plan" value="monthly">
+                            <div class="plan-card-select glass">
+                                <div class="plan-header-select">
+                                    <span class="plan-name">Monthly</span>
+                                    <span class="plan-price">$29.99/mo</span>
+                                </div>
+                                <p>Flexible, cancel anytime.</p>
+                            </div>
+                        </label>
+                        <label class="plan-option">
+                            <input type="radio" name="plan" value="yearly" checked>
+                            <div class="plan-card-select glass popular">
+                                <div class="badge-popular">Best Value</div>
+                                <div class="plan-header-select">
+                                    <span class="plan-name">Yearly</span>
+                                    <span class="plan-price">$19.99/mo</span>
+                                </div>
+                                <p>Billed $239.88 yearly. Save 33%</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-outline" onclick="prevSignupStep(2)">Back</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Start Journey</span>
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
         const vlogsGrid = document.getElementById('vlogsGrid');
 
         async function loadLatestVlogs() {
             try {
-                // Query for latest 3 vlogs
-                const q = query(
-                    collection(db, "posts"), 
-                    where("type", "==", "vlog"),
-                    orderBy("createdAt", "desc"),
-                    limit(3)
-                );
-                
-                const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) {
-                    vlogsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--c-text-muted);">No vlogs available yet.</div>';
-                    return;
-                }
+                // Static data for immediate loading
+                const vlogs = [
+                    {
+                        id: '1',
+                        title: 'Full Body HIIT Workout',
+                        excerpt: 'Burn calories and build muscle with this high-intensity interval training session.',
+                        date: 'Oct 15, 2023',
+                        duration: '15:00',
+                        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80',
+                        type: 'vlog'
+                    },
+                    {
+                        id: '2',
+                        title: 'Nutrition 101: Macros',
+                        excerpt: 'Understanding protein, carbs, and fats for optimal performance and recovery.',
+                        date: 'Oct 12, 2023',
+                        duration: '12:30',
+                        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+                        type: 'vlog'
+                    },
+                    {
+                        id: '3',
+                        title: 'Morning Yoga Routine',
+                        excerpt: 'Start your day with energy and focus with this 10-minute flow.',
+                        date: 'Oct 10, 2023',
+                        duration: '10:00',
+                        image: 'https://images.unsplash.com/photo-1544367563-121910aa662f?auto=format&fit=crop&w=800&q=80',
+                        type: 'vlog'
+                    }
+                ];
 
                 vlogsGrid.innerHTML = ''; // Clear loading message
 
-                querySnapshot.forEach((doc) => {
-                    const post = doc.data();
+                vlogs.forEach((post) => {
                     const article = document.createElement('article');
                     article.className = 'card glass blog-card vlog-card';
                     
-                    const linkUrl = `view-post.html?id=${doc.id}`;
+                    const linkUrl = `view-post.html?id=${post.id}`;
                     
                     article.innerHTML = `
                         <div class="card-image">
@@ -750,7 +896,7 @@
                         <div class="card-content">
                             <div class="blog-meta">
                                 <span><i class="far fa-calendar"></i> ${post.date}</span>
-                                <span><i class="fas fa-video"></i> ${post.duration || '10:00'}</span>
+                                <span><i class="fas fa-video"></i> ${post.duration}</span>
                             </div>
                             <h3>${post.title}</h3>
                             <p>${post.excerpt}</p>
