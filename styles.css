@@ -393,14 +393,14 @@ p {
   transition: var(--transition);
   border-radius: 0 0 var(--radius) var(--radius);
   /* Consistent glassmorphism - overrides scroll behavior */
-  background: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   backdrop-filter: blur(20px) !important;
   box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1) !important;
 }
 
 [data-theme="dark"] .header {
-  background: rgba(26, 32, 44, 0.8) !important;
+  background: rgba(26, 32, 44, 0.95) !important;
 }
 
 .header .container {

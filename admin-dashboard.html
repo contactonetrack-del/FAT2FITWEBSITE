@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- Custom Editor Script removed -->
     <link rel="stylesheet" href="styles.css">
     
     <style>
@@ -241,8 +241,141 @@
 
                     <div class="form-group">
                         <label class="form-label">Full Content</label>
-                        <textarea id="postContent" class="form-textarea" required placeholder="Write your full content here..." style="min-height: 300px;"></textarea>
+                        <!-- Custom Editor -->
+                        <div class="custom-editor-container">
+                            <div class="editor-toolbar">
+                                <button type="button" data-cmd="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                                <button type="button" data-cmd="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                                <button type="button" data-cmd="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                                <div class="separator"></div>
+                                <button type="button" data-cmd="formatBlock" data-val="H2" title="Heading 2">H2</button>
+                                <button type="button" data-cmd="formatBlock" data-val="H3" title="Heading 3">H3</button>
+                                <div class="separator"></div>
+                                <button type="button" data-cmd="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                                <button type="button" data-cmd="insertOrderedList" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                                <div class="separator"></div>
+                                <button type="button" data-cmd="createLink" title="Link"><i class="fas fa-link"></i></button>
+                                <button type="button" data-cmd="insertImage" title="Image"><i class="fas fa-image"></i></button>
+                                <button type="button" data-cmd="removeFormat" title="Clear Formatting"><i class="fas fa-eraser"></i></button>
+                            </div>
+                            <div id="editorContent" class="editor-content" contenteditable="true" placeholder="Start writing... Type '/' for commands"></div>
+                            <textarea id="postContent" style="display:none;"></textarea> <!-- Hidden textarea for form submission compatibility -->
+                            
+                            <!-- Slash Menu -->
+                            <div id="slashMenu" class="slash-menu">
+                                <div class="slash-item" data-cmd="formatBlock" data-val="H2">
+                                    <i class="fas fa-heading"></i> Heading 2
+                                </div>
+                                <div class="slash-item" data-cmd="formatBlock" data-val="H3">
+                                    <i class="fas fa-heading" style="font-size: 0.8em;"></i> Heading 3
+                                </div>
+                                <div class="slash-item" data-cmd="insertUnorderedList">
+                                    <i class="fas fa-list-ul"></i> Bullet List
+                                </div>
+                                <div class="slash-item" data-cmd="insertOrderedList">
+                                    <i class="fas fa-list-ol"></i> Numbered List
+                                </div>
+                                <div class="slash-item" data-cmd="formatBlock" data-val="blockquote">
+                                    <i class="fas fa-quote-right"></i> Quote
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <style>
+                        /* Custom Editor Styles */
+                        .custom-editor-container {
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            border-radius: var(--radius);
+                            background: var(--glass-medium);
+                            overflow: hidden;
+                            position: relative;
+                            transition: var(--transition);
+                        }
+                        .custom-editor-container:focus-within {
+                            border-color: var(--c-primary);
+                            background: var(--glass-light);
+                            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+                        }
+                        .editor-toolbar {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            padding: 10px;
+                            background: rgba(0, 0, 0, 0.2);
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                            flex-wrap: wrap;
+                        }
+                        .editor-toolbar button {
+                            background: transparent;
+                            border: none;
+                            color: var(--c-text-muted);
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: all 0.2s;
+                        }
+                        .editor-toolbar button:hover {
+                            background: rgba(255, 255, 255, 0.1);
+                            color: var(--c-text);
+                        }
+                        .editor-toolbar .separator {
+                            width: 1px;
+                            height: 20px;
+                            background: rgba(255, 255, 255, 0.1);
+                            margin: 0 5px;
+                        }
+                        .editor-content {
+                            min-height: 300px;
+                            padding: 20px;
+                            color: var(--c-text);
+                            font-family: 'Inter', sans-serif;
+                            line-height: 1.6;
+                            outline: none;
+                            overflow-y: auto;
+                        }
+                        .editor-content:empty:before {
+                            content: attr(placeholder);
+                            color: var(--c-text-muted);
+                            opacity: 0.5;
+                        }
+                        /* Slash Menu */
+                        .slash-menu {
+                            position: absolute;
+                            background: #1a1a2e;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                            border-radius: 8px;
+                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+                            width: 200px;
+                            display: none;
+                            z-index: 100;
+                            overflow: hidden;
+                            padding: 5px;
+                        }
+                        .slash-item {
+                            padding: 8px 12px;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            color: var(--c-text);
+                            border-radius: 4px;
+                            font-size: 0.9rem;
+                        }
+                        .slash-item:hover {
+                            background: var(--c-primary);
+                            color: white;
+                        }
+                        .slash-item i {
+                            width: 20px;
+                            text-align: center;
+                            opacity: 0.7;
+                        }
+                    </style>
 
                     <button type="submit" id="submitButton" class="btn btn-primary" style="width: 100%;">
                         <span id="submitButtonText">Publish Post</span>
@@ -266,25 +399,105 @@
     <script type="module">
         import { auth, db } from './firebase-config.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-        import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+        import { collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-        // Initialize TinyMCE
-        if (typeof tinymce !== 'undefined') {
-            tinymce.init({
-                selector: '#postContent',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                skin: 'oxide-dark',
-                content_css: 'dark',
-                height: 400
-            });
-        } else {
-            console.error("TinyMCE not loaded");
-            // Fallback: Ensure textarea is visible if TinyMCE fails
-            document.getElementById('postContent').style.display = 'block';
-        }
+        // Custom Editor Logic
+        const editorContent = document.getElementById('editorContent');
+        const editorToolbar = document.querySelector('.editor-toolbar');
+        const slashMenu = document.getElementById('slashMenu');
+
+        // Toolbar Actions
+        editorToolbar.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            
+            const cmd = btn.dataset.cmd;
+            const val = btn.dataset.val || null;
+            
+            if (cmd === 'createLink') {
+                const url = prompt('Enter link URL:', 'https://');
+                if (url) document.execCommand(cmd, false, url);
+            } else if (cmd === 'insertImage') {
+                const url = prompt('Enter image URL:', 'https://');
+                if (url) document.execCommand(cmd, false, url);
+            } else {
+                document.execCommand(cmd, false, val);
+            }
+            editorContent.focus();
+        });
+
+        // Slash Menu Logic
+        editorContent.addEventListener('keyup', (e) => {
+            if (e.key === '/') {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+                
+                slashMenu.style.display = 'block';
+                slashMenu.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                slashMenu.style.left = (rect.left + window.scrollX) + 'px';
+            } else {
+                slashMenu.style.display = 'none';
+            }
+        });
+
+        // Slash Menu Actions
+        slashMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.slash-item');
+            if (!item) return;
+
+            const cmd = item.dataset.cmd;
+            const val = item.dataset.val;
+
+            // Remove the slash
+            document.execCommand('delete', false, null);
+            
+            document.execCommand(cmd, false, val);
+            slashMenu.style.display = 'none';
+            editorContent.focus();
+        });
+
+        // Hide slash menu on click elsewhere
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.slash-menu') && e.target !== editorContent) {
+                slashMenu.style.display = 'none';
+            }
+        });
 
         let editingPostId = null;
+
+        // Helper to add fix button
+        function addFixButton(user) {
+            if (document.getElementById('fixPermissionsBtn')) return;
+            
+            const header = document.querySelector('.dashboard-header > div');
+            const btn = document.createElement('button');
+            btn.id = 'fixPermissionsBtn';
+            btn.className = 'btn btn-primary';
+            btn.style.marginTop = '10px';
+            btn.style.backgroundColor = '#f59e0b'; // Warning color
+            btn.innerHTML = '<i class="fas fa-shield-alt"></i> Fix Admin Permissions';
+            btn.onclick = async () => {
+                try {
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fixing...';
+                    btn.disabled = true;
+                    const userRef = doc(db, "users", user.uid);
+                    await setDoc(userRef, {
+                        email: user.email,
+                        role: 'admin',
+                        createdAt: serverTimestamp()
+                    }, { merge: true });
+                    showMessage('Permissions fixed! Reloading...');
+                    setTimeout(() => location.reload(), 1500);
+                } catch (err) {
+                    console.error(err);
+                    showMessage('Error fixing permissions: ' + err.message, true);
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Failed';
+                    btn.disabled = false;
+                }
+            };
+            header.appendChild(btn);
+        }
 
         // Auth Protection
         onAuthStateChanged(auth, (user) => {
@@ -292,6 +505,41 @@
                 window.location.href = 'admin-login.html';
             } else {
                 document.getElementById('adminEmail').textContent = user.email;
+
+                // Check Admin Role with Real-time Listener
+                onSnapshot(doc(db, "users", user.uid), (docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        if (userData.role !== 'admin') {
+                            showMessage('Warning: You do not have admin privileges. Publishing will fail.', true);
+                            console.warn("User role is not admin:", userData.role);
+                            addFixButton(user);
+                        } else {
+                            // If they are admin, remove the button if it exists
+                            const btn = document.getElementById('fixPermissionsBtn');
+                            if (btn) btn.remove();
+                            // Also hide any warning messages
+                            const errorMsg = document.getElementById('errorMessage');
+                            if (errorMsg.style.display === 'block' && errorMsg.textContent.includes('admin privileges')) {
+                                errorMsg.style.display = 'none';
+                            }
+                        }
+                    } else {
+                        showMessage('Warning: User profile not found in database. Publishing will fail.', true);
+                        console.warn("User document does not exist in 'users' collection.");
+                        addFixButton(user);
+                    }
+                }, (error) => {
+                    console.error("Error checking admin role:", error);
+                    // If permission denied, it means they definitely aren't admin (or rules are broken)
+                    // But we can't fix it if we can't write either.
+                    // However, the 'Fix' button attempts to WRITE.
+                    // If we can't READ, we might still be able to WRITE if the rule allows it.
+                    // Our rule: allow create: if isSignedIn() && isOwner(userId)...
+                    // So we should show the button even on read error!
+                    showMessage('Error checking permissions. You may need to fix your account.', true);
+                    addFixButton(user);
+                });
             }
         });
 
@@ -338,6 +586,12 @@
             const btn = document.getElementById('submitButton');
             const originalText = btn.innerHTML;
             
+            const title = document.getElementById('postTitle').value;
+            if (title.length < 5) {
+                showMessage('Error: Title must be at least 5 characters long.', true);
+                return;
+            }
+            
             try {
                 btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${editingPostId ? 'Updating...' : 'Publishing...'}`;
                 btn.disabled = true;
@@ -349,7 +603,7 @@
                     author: document.getElementById('postAuthor').value,
                     image: document.getElementById('postImage').value || 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
                     excerpt: document.getElementById('postExcerpt').value,
-                    content: (typeof tinymce !== 'undefined' && tinymce.get('postContent')) ? tinymce.get('postContent').getContent() : document.getElementById('postContent').value,
+                    content: document.getElementById('editorContent').innerHTML,
                     category: document.getElementById('postCategory').value || 'General',
                     featured: document.getElementById('postFeatured').value === 'true',
                     updatedAt: serverTimestamp()
@@ -373,12 +627,14 @@
                 }
                 
                 createPostForm.reset();
-                if (typeof tinymce !== 'undefined' && tinymce.get('postContent')) {
-                    tinymce.get('postContent').setContent('');
-                }
+                document.getElementById('editorContent').innerHTML = '';
                 videoUrlGroup.style.display = 'none';
             } catch (error) {
                 console.error("Error saving post:", error);
+                // Log detailed error info if available
+                if (error.code) console.error("Error Code:", error.code);
+                if (error.message) console.error("Error Message:", error.message);
+                
                 showMessage('Error: ' + error.message, true);
             } finally {
                 btn.innerHTML = originalText;
@@ -441,10 +697,7 @@
                     document.getElementById('postAuthor').value = post.author || '';
                     document.getElementById('postImage').value = post.image || '';
                     document.getElementById('postExcerpt').value = post.excerpt || '';
-                    document.getElementById('postContent').value = post.content || ''; // Fallback
-                    if (typeof tinymce !== 'undefined' && tinymce.get('postContent')) {
-                        tinymce.get('postContent').setContent(post.content || '');
-                    }
+                    document.getElementById('editorContent').innerHTML = post.content || '';
                     document.getElementById('postCategory').value = post.category || '';
                     document.getElementById('postFeatured').value = post.featured ? 'true' : 'false';
                     
