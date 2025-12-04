@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Feature Test - FIT2FAT XPRESS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 { color: #667eea; }
+        h2 { color: #f093fb; }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        .success { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .error { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .info { background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.3); }
+    </style>
+</head>
+<body>
+    <h1>🧪 FIT2FAT XPRESS - Feature Verification</h1>
+    
+    <div class="test-section">
+        <h2>1. Video Modal Test</h2>
+        <p>Click the button below to test the video modal with the fixed YouTube embed.</p>
+        <button onclick="window.open('index.html', '_blank')">Open Main Site</button>
+        <button onclick="testVideoEmbed()">Test Video Embed Directly</button>
+        <div id="videoTest"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Signup Flow Test</h2>
+        <p>Test the Firebase-integrated signup flow:</p>
+        <button onclick="window.open('index.html', '_blank')">Open Main Site & Test Signup</button>
+        <div class="status info">
+            <strong>Test Steps:</strong>
+            <ol>
+                <li>Click "Start Your Journey" button</li>
+                <li>Fill in: Name, Email, Password (min 6 chars)</li>
+                <li>Click "Next Step" → Select a fitness goal</li>
+                <li>Click "Next Step" → Choose a plan</li>
+                <li>Click "Start Journey" to create account</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Implementation Checklist</h2>
+        <div class="status success">
+            ✅ <strong>Video Modal:</strong>
+            <ul>
+                <li>Added referrer policy meta tag</li>
+                <li>Updated iframe to use youtube-nocookie.com</li>
+                <li>Added referrerpolicy attribute to iframe</li>
+                <li>Video URL: https://www.youtube-nocookie.com/embed/ml6cT4AZdqI</li>
+            </ul>
+        </div>
+        
+        <div class="status success">
+            ✅ <strong>Signup Flow:</strong>
+            <ul>
+                <li>Integrated Firebase Authentication</li>
+                <li>User creation with createUserWithEmailAndPassword</li>
+                <li>Profile update with display name</li>
+                <li>Firestore storage in 'users' collection</li>
+                <li>Error handling for common auth errors</li>
+            </ul>
+        </div>
+
+        <div class="status success">
+            ✅ <strong>Stats Section:</strong>
+            <ul>
+                <li>Full-width on mobile (touches edges)</li>
+                <li>No border-radius on mobile</li>
+                <li>Seamless background integration</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Firebase Console Verification</h2>
+        <p>After testing signup, verify in Firebase Console:</p>
+        <div class="status info">
+            <strong>Check these locations:</strong>
+            <ul>
+                <li><strong>Authentication:</strong> New user should appear with email</li>
+                <li><strong>Firestore → users collection:</strong> User document with profile data</li>
+            </ul>
+        </div>
+        <button onclick="window.open('https://console.firebase.google.com/project/newfat2fitauth/authentication/users', '_blank')">Open Firebase Auth</button>
+        <button onclick="window.open('https://console.firebase.google.com/project/newfat2fitauth/firestore/data', '_blank')">Open Firestore</button>
+    </div>
+
+    <script>
+        function testVideoEmbed() {
+            const container = document.getElementById('videoTest');
+            container.innerHTML = `
+                <div style="margin-top: 20px;">
+                    <h3>Direct Video Embed Test:</h3>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
+                        <iframe 
+                            src="https://www.youtube-nocookie.com/embed/ml6cT4AZdqI?autoplay=0&rel=0&modestbranding=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                        </iframe>
+                    </div>
+                    <p class="status success" style="margin-top: 10px;">
+                        ✅ If you see the video above without "Error 153", the fix is working!
+                    </p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
