@@ -10,6 +10,8 @@
   padding: 0;
   position: relative;
   overflow: hidden;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   
   /* Theme Variables - Matched to Website Style */
   --stats-bg: rgba(255, 255, 255, 0.1);
@@ -43,17 +45,22 @@
   right: 0;
   bottom: 0;
   background: var(--stats-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 0;
   transition: background 0.3s ease;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 /* Main stats container */
 .stats {
   width: 100%;
   margin: 0;
-  border-radius: 0 !important;
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   border: none !important;
   position: relative;
   z-index: 1;
