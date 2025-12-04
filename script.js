@@ -1,5 +1,5 @@
     // =============================================
-// FIT2FAT XPRESS - PREMIUM GLASSMORPHISM JAVASCRIPT
+// FAT2FIT XPRESS - PREMIUM GLASSMORPHISM JAVASCRIPT
 // =============================================
 
 // Premium Glass Application State
@@ -1660,7 +1660,7 @@ function createGlassTrialModal() {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Get 14 days of full access to all FIT2FAT XPRESS glassmorphism features completely free!</p>
+                    <p>Get 14 days of full access to all FAT2FIT XPRESS glassmorphism features completely free!</p>
                     <form id="glassTrialForm">
                         <div class="glass-form-group">
                             <label for="trialName" class="glass-label">Full Name *</label>
@@ -1698,7 +1698,7 @@ function createGlassDemoModal() {
         <div class="modal-overlay">
             <div class="modal-content" style="max-width: 800px; background: var(--glass-primary); backdrop-filter: blur(24px); border: 2px solid rgba(255, 255, 255, 0.3);">
                 <div class="modal-header">
-                    <h3>FIT2FAT XPRESS Glassmorphism Demo ✨</h3>
+                    <h3>FAT2FIT XPRESS Glassmorphism Demo ✨</h3>
                     <button class="modal-close glass-button" onclick="closeGlassModal()">
                         <i class="fas fa-times"></i>
                     </button>
@@ -1714,7 +1714,7 @@ function createGlassDemoModal() {
                         </iframe>
                     </div>
                     <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
-                        ✨ See how FIT2FAT XPRESS glassmorphism can transform your fitness journey
+                        ✨ See how FAT2FIT XPRESS glassmorphism can transform your fitness journey
                     </p>
                 </div>
             </div>
@@ -2110,7 +2110,7 @@ window.glassFormEnhancer = glassFormEnhancer;
 // FINAL INITIALIZATION
 // =============================================
 
-console.log('🔮 FIT2FAT XPRESS Glassmorphism JavaScript Loaded Successfully!');
+console.log('🔮 FAT2FIT XPRESS Glassmorphism JavaScript Loaded Successfully!');
 console.log('✨ Premium Features: Glass Effects Engine, Form Enhancement, Interactive Glassmorphism');
 console.log('💎 Advanced: Floating orbs, sparkle animations, glass ripples, 3D interactions');
 console.log('🎯 Enhanced: All working functions with premium glassmorphism styling');
@@ -2858,7 +2858,7 @@ window.handleSignup = async function(e) {
         });
         
         closeSignupModal();
-        showGlassNotification('Account created successfully! Welcome to FIT2FAT XPRESS! 🎉', 'success', 5000);
+        showGlassNotification('Account created successfully! Welcome to FAT2FIT XPRESS! 🎉', 'success', 5000);
         
         // Reset form
         btn.innerHTML = originalContent;
