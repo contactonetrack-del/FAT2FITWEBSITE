@@ -42,6 +42,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/responsive-fixes.css">
+    <link rel="stylesheet" href="css/vlog-hover.css">
 </head>
 <body>
     <!-- Background Orbs -->
@@ -848,7 +849,7 @@
 
         async function loadLatestVlogs() {
             try {
-                // Static data for immediate loading
+                // Static data with real YouTube videos
                 const vlogs = [
                     {
                         id: '1',
@@ -856,7 +857,7 @@
                         excerpt: 'Burn calories and build muscle with this high-intensity interval training session.',
                         date: 'Oct 15, 2023',
                         duration: '15:00',
-                        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80',
+                        videoId: 'cbKkB3POqaY',
                         type: 'vlog'
                     },
                     {
@@ -865,47 +866,78 @@
                         excerpt: 'Understanding protein, carbs, and fats for optimal performance and recovery.',
                         date: 'Oct 12, 2023',
                         duration: '12:30',
-                        image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+                        videoId: 'gC_L9qAHVJ8',
                         type: 'vlog'
                     },
                     {
                         id: '3',
-                        title: 'Morning Yoga Routine',
+                        title: 'Morning Yoga Flow',
                         excerpt: 'Start your day with energy and focus with this 10-minute flow.',
                         date: 'Oct 10, 2023',
                         duration: '10:00',
-                        image: 'https://images.unsplash.com/photo-1544367563-121910aa662f?auto=format&fit=crop&w=800&q=80',
+                        videoId: 'VaoV1PrYft4',
                         type: 'vlog'
                     }
                 ];
 
-                vlogsGrid.innerHTML = ''; // Clear loading message
+                vlogsGrid.innerHTML = '';
 
                 vlogs.forEach((post) => {
                     const article = document.createElement('article');
                     article.className = 'card glass blog-card vlog-card';
                     
                     const linkUrl = `view-post.html?id=${post.id}`;
+                    const thumbnailUrl = `https://img.youtube.com/vi/${post.videoId}/maxresdefault.jpg`;
                     
                     article.innerHTML = `
-                        <div class="card-image">
-                            <img src="${post.image}" alt="${post.title}" loading="lazy">
+                        <div class="card-image vlog-thumbnail" data-video-id="${post.videoId}">
+                            <img src="${thumbnailUrl}" alt="${post.title}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${post.videoId}/hqdefault.jpg'">
+                            <div class="video-hover-overlay">
+                                <iframe 
+                                    class="hover-video" 
+                                    src="" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen
+                                    referrerpolicy="strict-origin-when-cross-origin">
+                                </iframe>
+                            </div>
                             <div class="play-overlay"><i class="fas fa-play"></i></div>
-                            <span class="card-badge badge-accent">Vlog</span>
+                            <span class="card-badge badge-accent">VLOG</span>
                         </div>
                         <div class="card-content">
                             <div class="blog-meta">
                                 <span><i class="far fa-calendar"></i> ${post.date}</span>
                                 <span><i class="fas fa-video"></i> ${post.duration}</span>
                             </div>
-                            <h3>${post.title}</h3>
-                            <p>${post.excerpt}</p>
-                            <a href="${linkUrl}" class="btn btn-primary">
+                            <h3 class="card-title">${post.title}</h3>
+                            <p class="card-excerpt">${post.excerpt}</p>
+                            <a href="${linkUrl}" class="btn btn-outline btn-sm">
                                 <span>Watch Video</span>
                                 <i class="fas fa-play"></i>
                             </a>
                         </div>
                     `;
+                    
+                    // Make entire card clickable
+                    article.addEventListener('click', (e) => {
+                        if (!e.target.closest('.btn') && !e.target.closest('.vlog-thumbnail')) {
+                            window.location.href = linkUrl;
+                        }
+                    });
+                    
+                    // Add hover video functionality
+                    const cardImage = article.querySelector('.vlog-thumbnail');
+                    const hoverVideo = article.querySelector('.hover-video');
+                    
+                    cardImage.addEventListener('mouseenter', () => {
+                        hoverVideo.src = `https://www.youtube.com/embed/${post.videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${post.videoId}`;
+                    });
+                    
+                    cardImage.addEventListener('mouseleave', () => {
+                        hoverVideo.src = '';
+                    });
+                    
                     vlogsGrid.appendChild(article);
                 });
             } catch (error) {

@@ -1,0 +1,42 @@
+/* Video Hover Overlay for Vlogs */
+.vlog-thumbnail {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vlog-thumbnail:hover .video-hover-overlay {
+  opacity: 1;
+}
+
+.vlog-thumbnail:hover .play-overlay {
+  opacity: 0;
+}
+
+.hover-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Make vlog cards clickable */
+.vlog-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vlog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
