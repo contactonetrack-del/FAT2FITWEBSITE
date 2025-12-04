@@ -2697,17 +2697,10 @@ window.openVideoModal = function() {
     const modal = document.getElementById('videoModal');
     const iframe = document.getElementById('demoVideo');
     if (modal && iframe) {
-        // Try the original video first, fallback if needed
-        // This is a HIIT cardio workout video
-        const videoId = "ml6cT4AZdqI"; // Original video
-        // Alternative: "gC_L9qAHVJ8" (FitnessBlender HIIT)
-        
-        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+        // User's specified fitness demo video
+        iframe.src = "https://www.youtube.com/embed/cbKkB3POqaY?autoplay=1&rel=0&modestbranding=1";
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        
-        // Log for debugging
-        console.log('Loading video:', videoId);
     }
 };
 
