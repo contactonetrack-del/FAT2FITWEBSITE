@@ -894,54 +894,6 @@
                 ];
 
                 vlogsGrid.innerHTML = '';
-
-                vlogs.forEach((post) => {
-                    const article = document.createElement('article');
-                    article.className = 'card glass blog-card vlog-card';
-                    
-                    const linkUrl = `view-post.html?id=${post.id}`;
-                    const thumbnailUrl = `https://img.youtube.com/vi/${post.videoId}/maxresdefault.jpg`;
-                    
-                    article.innerHTML = `
-                        <div class="card-image vlog-thumbnail" data-video-id="${post.videoId}">
-                            <img src="${thumbnailUrl}" alt="${post.title}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${post.videoId}/hqdefault.jpg'">
-                            <div class="video-hover-overlay">
-                                <iframe 
-                                    class="hover-video" 
-                                    src="" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    referrerpolicy="strict-origin-when-cross-origin">
-                                </iframe>
-                            </div>
-                            <div class="play-overlay"><i class="fas fa-play"></i></div>
-                            <span class="card-badge badge-accent">VLOG</span>
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> ${post.date}</span>
-                                <span><i class="fas fa-video"></i> ${post.duration}</span>
-                            </div>
-                            <h3 class="card-title">${post.title}</h3>
-                            <p class="card-excerpt">${post.excerpt}</p>
-                            <a href="${linkUrl}" class="btn btn-outline btn-sm">
-                                <span>Watch Video</span>
-                                <i class="fas fa-play"></i>
-                            </a>
-                        </div>
-                    `;
-                    
-                    // Make entire card clickable
-                    article.addEventListener('click', (e) => {
-                        if (!e.target.closest('.btn') && !e.target.closest('.vlog-thumbnail')) {
-                            window.location.href = linkUrl;
-                        }
-                    });
-                    
-                    // Add hover video functionality
-                    const cardImage = article.querySelector('.vlog-thumbnail');
-                    const hoverVideo = article.querySelector('.hover-video');
                     
                     cardImage.addEventListener('mouseenter', () => {
                         hoverVideo.src = `https://www.youtube.com/embed/${post.videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${post.videoId}`;

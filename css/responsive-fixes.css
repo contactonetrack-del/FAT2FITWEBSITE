@@ -116,24 +116,12 @@
   }
 }
 
-/* === CRITICAL FIX 4: Stats Spacing === */
+/* === CRITICAL FIX 4: Stats Mobile Layout === */
 @media (max-width: 767px) {
-  .stats-wrapper {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    padding: 0;
-  }
-  
   .stats {
-    padding: var(--s-4) var(--s-3) !important;
-    gap: var(--s-3);
-    width: 100%;
-    margin: 0;
-    border-radius: 0 !important;
-    border-left: none;
-    border-right: none;
-    min-height: 100px;
+    padding: var(--s-5) var(--s-3) !important;
+    gap: var(--s-2);
+    min-height: 120px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
@@ -145,17 +133,20 @@
   }
   
   .stat-icon {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-bottom: var(--s-1);
   }
 
   .stat-number {
-    font-size: 1.25rem !important;
+    font-size: 1.125rem !important;
     font-weight: 700;
+    margin-bottom: var(--s-1);
   }
   
   .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
   
   .stat-divider {
